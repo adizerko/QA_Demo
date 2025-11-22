@@ -56,4 +56,13 @@ class Generation:
     def department():
         return random.choice(DEPARTMENT)
 
-print(Generation.department())
+    @staticmethod
+    def text_file():
+        file_name = f"file_upload{random.randint(1,100)}.txt"
+        file_path = rf"C:\Users\adizerko\Downloads\{file_name}"
+        text = faker.text(100)
+        with open(file_path, "w") as f:
+            f.write(text)
+
+        return file_name, file_path
+

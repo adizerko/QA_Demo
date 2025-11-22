@@ -1,5 +1,8 @@
+import base64
 import random
+import os
 import time
+from os import write
 
 import requests
 from selenium.webdriver.common.by import By
@@ -376,7 +379,32 @@ class Links(BasePage):
 class UploadAndDownload(BasePage):
     DOWNLOAD_BUTTON = By.ID, "downloadButton"
     UPLOAD_INPUT = By.ID, "uploadFile"
+    UPLOAD_RESULT = By.ID, "uploadedFilePath"
 
     def open_upload_and_download_page(self):
         self.open(UPLOAD_AND_DOWNLOAD_URL)
+
+    @staticmethod
+    def wait_for_file(file_path, timeout=20):
+        start = time.time()
+        while time.time() - start < timeout:
+            if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
+                return True
+            time.sleep(0.5)
+        return False
+
+    def click_download_button(self):
+        file_path = r"C:\Users\adizerko\Downloads\sampleFile.jpeg"
+        self.click(self.DOWNLOAD_BUTTON)
+        result = self.wait_for_file(file_path)
+        if result:
+            os.remove(file_path)
+        return result
+
+    def upload_file(self):
+        file_name, file_path = Generation.text_file()
+        self.send_keys(self.UPLOAD_INPUT, file_path)
+        os.remove(file_path)
+        result = self.get_text(self.UPLOAD_RESULT)
+        return file_name, result
 

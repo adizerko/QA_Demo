@@ -6,7 +6,7 @@ from conftest import driver
 from data import LOCATORS_SORT_BY_COLUMN, SUCCESS_DOUBLE_CLICK_MESSAGE, SUCCESS_RIGHT_CLICK_MESSAGE, \
     SUCCESS_CLICK_MESSAGE, LOCATORS_LINKS_PAGE, LOCATORS_LINKS_API_PAGE
 from generation import Generation
-from pages.elements_page import TextBox, CheckBox, RadioButton, WebTables, Buttons, Links
+from pages.elements_page import TextBox, CheckBox, RadioButton, WebTables, Buttons, Links, UploadAndDownload
 
 
 class TestTextBox:
@@ -171,11 +171,16 @@ class TestLinks:
 
 class TestUploadAndDownload:
 
-    def test_download_file(self):
-        pass
+    def test_download_file(self, driver):
+        upload_and_download_page = UploadAndDownload(driver)
+        upload_and_download_page.open_upload_and_download_page()
+        assert upload_and_download_page.click_download_button()
 
-
-
+    def test_upload_file(self, driver):
+        upload_page = UploadAndDownload(driver)
+        upload_page.open_upload_and_download_page()
+        file_name, result = upload_page.upload_file()
+        assert file_name in result
 
 
 
