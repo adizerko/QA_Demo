@@ -1,8 +1,6 @@
-import base64
 import random
 import os
 import time
-from os import write
 
 import requests
 from selenium.webdriver.common.by import By

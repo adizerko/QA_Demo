@@ -2,7 +2,7 @@ import random
 
 from faker import Faker
 
-from data import DEPARTMENT
+from data import DEPARTMENT, SUBJECTS_LIST
 
 faker = Faker()
 
@@ -65,4 +65,40 @@ class Generation:
             f.write(text)
 
         return file_name, file_path
+    @staticmethod
+    def gender_forms():
+        num = random.randint(1,3)
+        gender = ""
+        if num == 1:
+            gender = "Male"
+        elif num == 2:
+            gender = "Female"
+        else:
+            gender = "Other"
 
+        return gender, num
+
+    @staticmethod
+    def phone_number():
+        phone = random.randint(1000000000, 9999999999)
+        return phone
+
+    @staticmethod
+    def date_of_birth():
+        date_of_birth = faker.date_of_birth()
+        return str(date_of_birth)
+
+    @staticmethod
+    def subjects():
+        num = random.randint(1,14)
+        subject_choice = random.sample(SUBJECTS_LIST, num)
+        return subject_choice
+
+    @staticmethod
+    def hobbies():
+        num = random.randint(1,3)
+
+
+
+
+print(Generation.date_of_birth())

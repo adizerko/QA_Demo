@@ -37,3 +37,15 @@ LOCATORS_LINKS_API_PAGE = [
     ("forbidden", "403", "Forbidden"),
     ("invalid-url", "404", "Not Found")
 ]
+
+LOCATOR_GENDERS = [
+    (By.ID, "gender-radio-1"),
+    (By.ID, "gender-radio-2"),
+    (By.ID, "gender-radio-3"),
+]
+
+SUBJECTS_LIST = [
+    "Hindi", "English", "Maths", "Physics", "Chemistry",
+    "Biology", "Computer Science", "Commerce", "Accounting",
+    "Economics", "Arts", "Social Studies", "History", "Civics",
+]

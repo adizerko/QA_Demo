@@ -72,5 +72,8 @@ class BasePage:
         url = self.driver.current_url
         return url
 
+    def clear_input_js(self):
+        self.driver.execute_script("document.getElementById('dateOfBirthInput').value = ''")
+
 
 
