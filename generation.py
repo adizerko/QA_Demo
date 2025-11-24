@@ -1,8 +1,9 @@
 import random
+from typing import Any
 
 from faker import Faker
 
-from data import DEPARTMENT, SUBJECTS_LIST
+from data import DEPARTMENT, SUBJECTS_LIST, STATE_AND_CITY
 
 faker = Faker()
 
@@ -68,7 +69,6 @@ class Generation:
     @staticmethod
     def gender_forms():
         num = random.randint(1,3)
-        gender = ""
         if num == 1:
             gender = "Male"
         elif num == 2:
@@ -86,7 +86,8 @@ class Generation:
     @staticmethod
     def date_of_birth():
         date_of_birth = faker.date_of_birth()
-        return str(date_of_birth)
+        formatted_date = date_of_birth.strftime("%d %B,%Y")
+        return str(formatted_date)
 
     @staticmethod
     def subjects():
@@ -95,10 +96,7 @@ class Generation:
         return subject_choice
 
     @staticmethod
-    def hobbies():
-        num = random.randint(1,3)
-
-
-
-
-print(Generation.date_of_birth())
+    def state_and_city() -> tuple[Any, Any]:
+        state = random.choice(list(STATE_AND_CITY.keys()))
+        city = random.choice(STATE_AND_CITY[state])
+        return state, city
