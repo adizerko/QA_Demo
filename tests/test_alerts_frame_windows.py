@@ -3,7 +3,7 @@ import pytest
 
 from conftest import driver
 from data import FRAME_LOCATOR
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramePage
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramePage, NestedFramesPage
 
 
 @allure.suite('Alerts, Frame & Windows')
@@ -85,6 +85,7 @@ class TestAlertsFrameWindows:
             assert text_alert_prompt == "Please enter your name"
             assert prompt_result == f"You entered {text_prompt}"
 
+
     @allure.feature('Frame Page')
     class TestFrame:
 
@@ -96,3 +97,25 @@ class TestAlertsFrameWindows:
             text_frame = frame_page.switch_to_frame_and_get_text(frame)
 
             assert text_frame == "This is a sample page"
+
+
+    @allure.feature('Nested Frame Page')
+    class TestNestedFrame:
+        @allure.story("Проверка текста в родительском фрейме")
+        def test_parent_frame(self, driver):
+            nested_frames_page = NestedFramesPage(driver)
+            nested_frames_page.open_nested_frame_page()
+            nested_frames_page.switch_to_parent_frame()
+            parent_text = nested_frames_page.get_text_frame()
+
+            assert parent_text == "Parent frame"
+
+        @allure.story("Проверка текста в дочернем фрейме")
+        def test_child_frame(self, driver):
+            nested_frames_page = NestedFramesPage(driver)
+            nested_frames_page.open_nested_frame_page()
+            nested_frames_page.switch_to_parent_frame()
+            nested_frames_page.switch_to_child_frame()
+            child_text = nested_frames_page.get_text_frame()
+
+            assert child_text == "Child Iframe"

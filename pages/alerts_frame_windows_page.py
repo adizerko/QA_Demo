@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.common.by import By
 
-from curl import BROWSER_WINDOWS_URL, ALERT_URL, FRAME_URL
+from curl import BROWSER_WINDOWS_URL, ALERT_URL, FRAME_URL, NESTED_FRAME_URL
 from generation import Generation
 from pages.base_page import BasePage
 
@@ -114,3 +114,27 @@ class FramePage(BasePage):
         self.switch_to_frame(locator)
         text_frame = self.get_text(self.SAMPLE_HEADING)
         return text_frame
+
+
+class NestedFramesPage(BasePage):
+    PARENT_FRAME = By.ID, "frame1"
+    CHILD_FRAME = By.XPATH, ".//iframe"
+    PARENT_FRAME_TEXT = By.XPATH, "//body"
+    CHILD_FRAME_TEXT = By.XPATH, "//body/p"
+
+    @allure.step("Открываем страницу Nested Frames")
+    def open_nested_frame_page(self):
+        self.open(NESTED_FRAME_URL)
+
+    @allure.step("Переключаемся на родительский фрейм")
+    def switch_to_parent_frame(self):
+        self.switch_to_frame(self.PARENT_FRAME)
+
+    @allure.step("Переключаемся на дочерний фрейм")
+    def switch_to_child_frame(self):
+        self.switch_to_frame(self.CHILD_FRAME)
+
+    @allure.step("Получаем текст из текущего фрейма")
+    def get_text_frame(self):
+        parent_text = self.get_text(self.PARENT_FRAME_TEXT)
+        return parent_text
