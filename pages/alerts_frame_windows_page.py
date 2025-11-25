@@ -1,9 +1,10 @@
 import allure
 from selenium.webdriver.common.by import By
 
-from curl import BROWSER_WINDOWS_URL, ALERT_URL, FRAME_URL, NESTED_FRAME_URL
+from curl import BROWSER_WINDOWS_URL, ALERT_URL, FRAME_URL, NESTED_FRAME_URL, MODAL_DIALOGS_URL
 from generation import Generation
 from pages.base_page import BasePage
+from pages.elements_page import Buttons
 
 
 class BrowserWindowsPage(BasePage):
@@ -138,3 +139,42 @@ class NestedFramesPage(BasePage):
     def get_text_frame(self):
         parent_text = self.get_text(self.PARENT_FRAME_TEXT)
         return parent_text
+
+
+class ModalDialogsPage(BasePage):
+    SMALL_MODAL_BUTTON = By.ID, "showSmallModal"
+    LARGE_MODAL_BUTTON = By.ID, "showLargeModal"
+    CLOSE_SMALL_MODAL_BUTTON = By.ID, "closeSmallModal"
+    CLOSE_LARGE_MODAL_BUTTON = By.ID, "closeLargeModal"
+    TEXT_SMALL_MODAL = By.CLASS_NAME, "modal-body"
+    TEXT_LARGE_MODAL = By.XPATH, "//div[@class='modal-body']/p"
+
+    @allure.step("Открываем страницу Modal Dialogs")
+    def ope_modal_dialogs_page(self):
+        self.open(MODAL_DIALOGS_URL)
+
+    @allure.step("Нажимаем кнопку маленького модального окна")
+    def click_small_modal_button(self):
+        self.click(self.SMALL_MODAL_BUTTON)
+
+    @allure.step("Закрываем маленькое модальное окно")
+    def click_close_small_modal_button(self):
+        self.click(self.CLOSE_SMALL_MODAL_BUTTON)
+
+    @allure.step("Получаем текст маленького модального окна")
+    def get_text_small_modal(self):
+        text_small_modal = self.get_text(self.TEXT_SMALL_MODAL)
+        return text_small_modal
+
+    @allure.step("Нажимаем кнопку большого модального окна")
+    def click_large_modal_button(self):
+        self.click(self.LARGE_MODAL_BUTTON)
+
+    @allure.step("Получаем текст большого модального окна")
+    def get_text_large_modal(self):
+        text_large_modal = self.get_text(self.TEXT_LARGE_MODAL)
+        return text_large_modal
+
+    @allure.step("Закрываем большое модальное окно")
+    def click_close_large_modal_button(self):
+        self.click(self.CLOSE_LARGE_MODAL_BUTTON)

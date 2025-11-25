@@ -2,8 +2,9 @@ import allure
 import pytest
 
 from conftest import driver
-from data import FRAME_LOCATOR
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramePage, NestedFramesPage
+from data import FRAME_LOCATOR, ModalDialogsData
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramePage, NestedFramesPage, \
+    ModalDialogsPage
 
 
 @allure.suite('Alerts, Frame & Windows')
@@ -101,7 +102,7 @@ class TestAlertsFrameWindows:
 
     @allure.feature('Nested Frame Page')
     class TestNestedFrame:
-        @allure.story("Проверка текста в родительском фрейме")
+        @allure.title("Проверка текста в родительском фрейме")
         def test_parent_frame(self, driver):
             nested_frames_page = NestedFramesPage(driver)
             nested_frames_page.open_nested_frame_page()
@@ -110,7 +111,7 @@ class TestAlertsFrameWindows:
 
             assert parent_text == "Parent frame"
 
-        @allure.story("Проверка текста в дочернем фрейме")
+        @allure.title("Проверка текста в дочернем фрейме")
         def test_child_frame(self, driver):
             nested_frames_page = NestedFramesPage(driver)
             nested_frames_page.open_nested_frame_page()
@@ -119,3 +120,25 @@ class TestAlertsFrameWindows:
             child_text = nested_frames_page.get_text_frame()
 
             assert child_text == "Child Iframe"
+
+    @allure.feature("Modal Dialogs Page")
+    class TestModalDialogs:
+        @allure.title("Проверка текста маленького модального окна")
+        def test_small_modal(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver)
+            modal_dialogs_page.ope_modal_dialogs_page()
+            modal_dialogs_page.click_small_modal_button()
+            text_modal = modal_dialogs_page.get_text_small_modal()
+            modal_dialogs_page.click_close_small_modal_button()
+
+            assert text_modal == ModalDialogsData.SMALL_MODAL_EXPECTED_TEXT
+
+        @allure.title("Проверка текста большого модального окна")
+        def test_large_modal(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver)
+            modal_dialogs_page.ope_modal_dialogs_page()
+            modal_dialogs_page.click_large_modal_button()
+            text_modal = modal_dialogs_page.get_text_large_modal()
+            modal_dialogs_page.click_close_large_modal_button()
+
+            assert text_modal == ModalDialogsData.LARGE_MODAL_EXPECTED_TEXT
