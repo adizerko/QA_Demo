@@ -1,16 +1,19 @@
 import allure
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 from pages.forms_page import FormsPage
+
 
 @allure.feature("Форма регистрации")
 class TestForms:
     @allure.story("Отправка формы с корректными данными и проверка результата")
-    def test_submit_practice_form_with_valid_data_displays_correct_results(self, driver):
+    def test_submit_practice_form_with_valid_data_displays_correct_results(
+            self, driver: WebDriver):
+
         forms_page = FormsPage(driver)
         forms_page.open_forms_page()
         form_data = forms_page.fill_form_data()
         forms_page.click_submit()
-
         result = forms_page.get_result_from_data()
 
         assert form_data["student name"] == result["student name"]

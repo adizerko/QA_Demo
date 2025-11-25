@@ -159,7 +159,6 @@ class FormsPage(BasePage):
         address: str = self.set_current_address()
         state, city = self.select_state_and_city()
 
-
         form_data = {
             "student name": f"{first_name} {last_name}",
             "email": email,

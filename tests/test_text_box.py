@@ -28,6 +28,7 @@ class TestTextBox:
         assert text_box_page.is_current_address_correct(current_address), "Текущий адрес не совпадает"
         assert text_box_page.is_permanent_address_correct(permanent_address), "Постоянный адрес не совпадает"
 
+
 class TestCheckBox:
     def test_check_box(self, driver):
         check_box_page = CheckBox(driver)
@@ -65,6 +66,7 @@ class TestRadioButton:
         radio_result = radio_button_page.get_radio_result()
 
         assert radio_result == 'No'
+
 
 class TestWebTables:
 
@@ -123,6 +125,7 @@ class TestWebTables:
 
         assert sort_result_text == expected_sorted_column
 
+
 class TestButtons:
 
     def test_double_click(self, driver):
@@ -146,6 +149,7 @@ class TestButtons:
 
         assert text_result == SUCCESS_CLICK_MESSAGE
 
+
 class TestLinks:
 
     @pytest.mark.parametrize("locator", LOCATORS_LINKS_PAGE)
@@ -168,7 +172,6 @@ class TestLinks:
         assert response_text_expected == response_text
 
 
-
 class TestUploadAndDownload:
 
     def test_download_file(self, driver):
@@ -181,7 +184,3 @@ class TestUploadAndDownload:
         upload_page.open_upload_and_download_page()
         file_name, result = upload_page.upload_file()
         assert file_name in result
-
-
-
-

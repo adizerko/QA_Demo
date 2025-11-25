@@ -75,5 +75,5 @@ class BasePage:
     def clear_input_js(self):
         self.driver.execute_script("document.getElementById('dateOfBirthInput').value = ''")
 
-
-
+    def switch_to_alert(self):
+        return self.driver.switch_to.alert

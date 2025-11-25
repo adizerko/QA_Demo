@@ -10,51 +10,51 @@ faker = Faker()
 class Generation:
 
     @staticmethod
-    def user_name():
+    def user_name() -> str:
         user_name = faker.user_name()
         return user_name
 
     @staticmethod
-    def email():
+    def email() -> str:
         email = faker.email()
         return email
 
     @staticmethod
-    def address():
+    def address() -> str:
         address = faker.street_address()
         return address
 
     @staticmethod
     def text_box_input():
-        user_name = Generation.user_name()
-        email = Generation.email()
-        current_address = Generation.address()
-        permanent_address = Generation.address()
+        user_name: str = Generation.user_name()
+        email: str = Generation.email()
+        current_address: str = Generation.address()
+        permanent_address: str = Generation.address()
 
         return user_name, email, current_address, permanent_address
 
     @staticmethod
-    def first_name():
+    def first_name() -> str:
         first_name = faker.first_name()
         return first_name
 
     @staticmethod
-    def last_name():
+    def last_name() -> str:
         last_name = faker.last_name()
         return last_name
 
     @staticmethod
-    def age():
+    def age() -> str:
         age = random.randint(18, 65)
         return str(age)
 
     @staticmethod
-    def salary():
+    def salary() -> str:
         salary = random.randint(500, 20000)
         return str(salary)
 
     @staticmethod
-    def department():
+    def department() -> str:
         return random.choice(DEPARTMENT)
 
     @staticmethod
@@ -66,6 +66,7 @@ class Generation:
             f.write(text)
 
         return file_name, file_path
+
     @staticmethod
     def gender_forms():
         num = random.randint(1,3)
@@ -84,7 +85,7 @@ class Generation:
         return phone
 
     @staticmethod
-    def date_of_birth():
+    def date_of_birth() -> str:
         date_of_birth = faker.date_of_birth()
         formatted_date = date_of_birth.strftime("%d %B,%Y")
         return str(formatted_date)
