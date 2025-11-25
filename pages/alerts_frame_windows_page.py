@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.common.by import By
 
-from curl import BROWSER_WINDOWS_URL, ALERT_URL
+from curl import BROWSER_WINDOWS_URL, ALERT_URL, FRAME_URL
 from generation import Generation
 from pages.base_page import BasePage
 
@@ -98,3 +98,19 @@ class AlertsPage(BasePage):
     def get_result_prompt_alert(self):
         result_prompt = self.get_text(self.PROMPT_RESULT)
         return result_prompt
+
+
+class FramePage(BasePage):
+    FRAME_1 = By.ID, "frame1"
+    FRAME_2 = By.ID, "frame2"
+    SAMPLE_HEADING = By.ID, "sampleHeading"
+
+    @allure.step("Открываем страницу Frames")
+    def open_frame_page(self):
+        self.open(FRAME_URL)
+
+    @allure.step("Переключаемся на фрейм и получаем текст внутри фрейма: {locator}")
+    def switch_to_frame_and_get_text(self, locator):
+        self.switch_to_frame(locator)
+        text_frame = self.get_text(self.SAMPLE_HEADING)
+        return text_frame

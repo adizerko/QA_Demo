@@ -1,6 +1,10 @@
 import allure
+import pytest
 
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage
+from conftest import driver
+from data import FRAME_LOCATOR
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramePage
+
 
 @allure.suite('Alerts, Frame & Windows')
 class TestAlertsFrameWindows:
@@ -80,3 +84,15 @@ class TestAlertsFrameWindows:
 
             assert text_alert_prompt == "Please enter your name"
             assert prompt_result == f"You entered {text_prompt}"
+
+    @allure.feature('Frame Page')
+    class TestFrame:
+
+        @allure.title("Проверяем текст во фрейме")
+        @pytest.mark.parametrize("frame", FRAME_LOCATOR, ids=["Frame 1", "Frame 2"])
+        def test_frame_page(self, driver, frame):
+            frame_page = FramePage(driver)
+            frame_page.open_frame_page()
+            text_frame = frame_page.switch_to_frame_and_get_text(frame)
+
+            assert text_frame == "This is a sample page"

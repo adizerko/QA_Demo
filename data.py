@@ -56,3 +56,8 @@ STATE_AND_CITY = {
     "Haryana": ["Karnal", "Panipat"],
     "Rajasthan": ["Jaipur", "Jaiselmer"]
 }
+
+FRAME_LOCATOR = [
+    (By.ID, "frame1"),
+    (By.ID, "frame2")
+]
