@@ -1,3 +1,5 @@
+from asyncio import timeout
+
 from selenium.webdriver.ie.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -17,6 +19,9 @@ class BasePage:
         return WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located(locator),
         )
+
+    def wait_for_alert(self, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(EC.alert_is_present())
 
     def wait_for_visible(self, locator, timeout: int = 10):
         return WebDriverWait(self.driver, timeout).until(
@@ -76,4 +81,5 @@ class BasePage:
         self.driver.execute_script("document.getElementById('dateOfBirthInput').value = ''")
 
     def switch_to_alert(self):
-        return self.driver.switch_to.alert
+        alert = self.wait_for_alert()
+        return alert

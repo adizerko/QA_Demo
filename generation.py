@@ -25,6 +25,11 @@ class Generation:
         return address
 
     @staticmethod
+    def text() -> str:
+        text = faker.text(10)
+        return text
+
+    @staticmethod
     def text_box_input():
         user_name: str = Generation.user_name()
         email: str = Generation.email()
