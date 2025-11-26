@@ -3,7 +3,7 @@ from typing import Any
 
 from faker import Faker
 
-from data import DEPARTMENT, SUBJECTS_LIST, STATE_AND_CITY
+from data import DEPARTMENT, SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData
 
 faker = Faker()
 
@@ -106,3 +106,9 @@ class Generation:
         state = random.choice(list(STATE_AND_CITY.keys()))
         city = random.choice(STATE_AND_CITY[state])
         return state, city
+
+    @staticmethod
+    def color():
+        color = random.choice(AutoCompleteData.COLORS)
+        return color
+

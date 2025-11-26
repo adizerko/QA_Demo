@@ -48,6 +48,11 @@ class BasePage:
         elements = WebDriverWait(self.driver, timeout).until(EC.presence_of_all_elements_located(locator))
         return elements
 
+    def get_elements(self, locator):
+        by, value = locator
+        elements = self.driver.find_elements(by, value)
+        return elements
+
     def find_elements_for_web_tables(self, locator):
         elements = self.driver.find_elements(*locator)
         return elements
@@ -95,3 +100,4 @@ class BasePage:
             EC.visibility_of_element_located(locator)
         )
         return element.is_displayed()
+

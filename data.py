@@ -135,3 +135,34 @@ class AccordianData:
             " (injected humour and the like)."
     )
 
+class AutoCompleteData:
+
+    COLORS = ["Red",
+              "Blue",
+              "Green",
+              "Yellow",
+              "Black",
+              "White",
+              "Voilet",
+              "Indigo",
+              "Magenta",
+              "Aqua",]
+
+    AUTO_COMPLETE_OPTIONS = {
+        "a": ["Black", "Magenta", "Aqua"],
+        "b": ["Blue", "Black"],
+        "c": ["Black"],
+        "d": ["Red", "Indigo"],
+        "i": ["White", "Voilet", "Indigo"],
+        "e": ["Red", "Blue", "Green", "Yellow", "Purple", "White", "Voilet", "Magenta"],
+        "g": ["Green", "Indigo", "Magenta"],
+        "h": ["White"],
+        "l": ["Blue", "Yellow", "Purple", "Black", "Voilet"],
+        "bl": ["Blue", "Black"],
+        "en": ["Green", "Magenta"],
+    }
+
+    INPUT_FIELDS = [
+        (By.ID, "autoCompleteMultipleInput"),
+        (By.ID, "autoCompleteSingleInput")
+    ]
