@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 from curl import BROWSER_WINDOWS_URL, ALERT_URL, FRAME_URL, NESTED_FRAME_URL, MODAL_DIALOGS_URL
 from generation import Generation
 from pages.base_page import BasePage
-from pages.elements_page import Buttons
 
 
 class BrowserWindowsPage(BasePage):

@@ -89,3 +89,9 @@ class BasePage:
             EC.frame_to_be_available_and_switch_to_it(locator)
         )
         return frame
+
+    def is_displayed(self, locator, timeout=10):
+        element = WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(locator)
+        )
+        return element.is_displayed()
