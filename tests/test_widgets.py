@@ -3,7 +3,7 @@ import pytest
 
 from conftest import driver
 from data import AccordianData, AutoCompleteData
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage
 
 
 @allure.suite("Widgets")
@@ -129,3 +129,13 @@ class TestWidgets:
             date_actual = date_picker_page.get_date_and_time_value()
 
             assert date_expected == date_actual
+
+    @allure.feature("Slider")
+    class TestSlider:
+
+        @allure.title("Проверяем перемещение ползунка")
+        def test_slider_moves_when_dragged(self, driver):
+            slider_page = SliderPage(driver)
+            slider_page.open_slider_page()
+            value_before, value_after = slider_page.change_slider_value()
+            assert value_before != value_after

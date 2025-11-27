@@ -5,7 +5,7 @@ import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL
+from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL
 from data import AutoCompleteData
 from generation import Generation
 from helper import Helper
@@ -244,3 +244,20 @@ class DatePickerPage(BasePage):
         time = Helper.formated_time(self.select_random_time())  # допустим, возвращает "23:30"
         date_and_time = f"{month} {day}, {year} {time}"
         return date_and_time
+
+
+class SliderPage(BasePage):
+    INPUT_SLIDER = By.XPATH, "//input[@class='range-slider range-slider--primary']"
+    INPUT_SLIDER_VALUE = By.ID, "sliderValue"
+
+    @allure.step("Открываем страницу Slider")
+    def open_slider_page(self):
+        self.open(SLIDER_URL)
+
+    @allure.step("Двигаем ползунок")
+    def change_slider_value(self):
+        value_before = self.get_attribute(self.INPUT_SLIDER_VALUE, "value")
+        element = self.wait_for_element(self.INPUT_SLIDER)
+        self.action_drag_and_drop_by_offset(element, random.randint(1,100), 0)
+        value_after = self.get_attribute(self.INPUT_SLIDER_VALUE, "value")
+        return value_before, value_after
