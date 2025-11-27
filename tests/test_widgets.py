@@ -3,7 +3,7 @@ import pytest
 
 from conftest import driver
 from data import AccordianData, AutoCompleteData
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage
 
 
 @allure.suite("Widgets")
@@ -139,3 +139,30 @@ class TestWidgets:
             slider_page.open_slider_page()
             value_before, value_after = slider_page.change_slider_value()
             assert value_before != value_after
+
+    @allure.feature("Progress Bar")
+    class TestProgressBar:
+        @allure.title("Прогресс-бар запускается после нажатия Start")
+        def test_progress_bar_is_running_after_start_click(self, driver):
+            progress_bar_page = ProgressBarPage(driver)
+            progress_bar_page.open_progress_bar_page()
+            initial_value, finished_value = progress_bar_page.start_and_get_progress()
+
+            assert initial_value < finished_value
+
+        @allure.title("Прогресс-бар останавливается после нажатия Stop")
+        def test_progress_bar_stops_after_click_stop(self, driver):
+            progress_bar_page = ProgressBarPage(driver)
+            progress_bar_page.open_progress_bar_page()
+            stop_value, value_after_wait = progress_bar_page.stop_progress_bar_and_get_values()
+
+            assert stop_value == value_after_wait
+
+        @allure.title("Прогресс-бар сбрасывается в 0 после нажатия Reset")
+        def test_progress_bar_resets_to_zero_after_reset_click(self, driver):
+            progress_bar_page = ProgressBarPage(driver)
+            progress_bar_page.open_progress_bar_page()
+            value_before_reset, value_after_reset = progress_bar_page.reset_progress_bar_and_get_values()
+
+            assert value_before_reset != value_after_reset
+            assert value_after_reset == '0'

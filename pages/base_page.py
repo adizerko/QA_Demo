@@ -80,9 +80,13 @@ class BasePage:
         action.perform()
 
     def get_attribute(self, locator, attribute, timeout: int = 10):
-        element = self.wait_for_element(locator)
+        element = self.wait_for_element(locator, timeout)
         attribute = element.get_attribute(attribute)
         return attribute
+
+    def get_attribute_via_presence(self, locator, value, timeout: int =10):
+        element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+        return element.get_attribute(value)
 
     def switch_to_new_windows(self):
         return self.driver.switch_to.window(self.driver.window_handles[1])

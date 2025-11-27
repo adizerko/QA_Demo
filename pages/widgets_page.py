@@ -1,11 +1,11 @@
 import random
-
+import time
 
 import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL
+from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL
 from data import AutoCompleteData
 from generation import Generation
 from helper import Helper
@@ -261,3 +261,55 @@ class SliderPage(BasePage):
         self.action_drag_and_drop_by_offset(element, random.randint(1,100), 0)
         value_after = self.get_attribute(self.INPUT_SLIDER_VALUE, "value")
         return value_before, value_after
+
+
+class ProgressBarPage(BasePage):
+    START_BUTTON = By.ID, "startStopButton"
+    RESET_BUTTON = By.ID, "resetButton"
+    PROGRESS_BAR = By.ID, "progressBar"
+    PROGRESS_BAR_VALUE = By.XPATH, "//div[@class='progress-bar bg-info' or @class='progress-bar bg-success']"
+
+    @allure.step("Открываем страницу Progress Bar")
+    def open_progress_bar_page(self):
+        self.open(PROGRESS_BAR_URL)
+
+    @allure.step("Нажимаем кнопку Start/Stop")
+    def click_start_stop(self):
+        self.click(self.START_BUTTON)
+
+    @allure.step("Нажимаем кнопку Reset")
+    def click_reset(self):
+        self.click(self.RESET_BUTTON)
+
+    @allure.step("Получаем значение прогресс-бара")
+    def get_value_progress_bar(self):
+        value = self.get_attribute_via_presence(
+            self.PROGRESS_BAR_VALUE, "aria-valuenow")
+        return value
+
+    @allure.step("Старт прогресс-бара и получение значения")
+    def start_and_get_progress(self):
+        initial_value = self.get_value_progress_bar()
+        self.click_start_stop()
+        time.sleep(random.randint(1, 5))
+        finished_value = self.get_value_progress_bar()
+        return initial_value, finished_value
+
+    @allure.step("Сброс прогресс-бара и получение значений до и после")
+    def reset_progress_bar_and_get_values(self):
+        self.click_start_stop()
+        time.sleep(10.5)
+        value_before_reset = self.get_value_progress_bar()
+        self.click_reset()
+        value_after_reset = self.get_value_progress_bar()
+        return value_before_reset, value_after_reset
+
+    @allure.step("Остановка прогресс-бара и получение значения")
+    def stop_progress_bar_and_get_values(self):
+        self.click_start_stop()
+        time.sleep(2)
+        self.click_start_stop()
+        stop_value = self.get_value_progress_bar()
+        time.sleep(2)
+        value_after_wait = self.get_value_progress_bar()
+        return stop_value, value_after_wait
