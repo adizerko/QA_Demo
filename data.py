@@ -166,3 +166,6 @@ class AutoCompleteData:
         (By.ID, "autoCompleteMultipleInput"),
         (By.ID, "autoCompleteSingleInput")
     ]
+
+class DatePickerData:
+    pass

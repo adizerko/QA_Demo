@@ -1,4 +1,5 @@
 import random
+from calendar import month
 from typing import Any
 
 from faker import Faker
@@ -96,6 +97,11 @@ class Generation:
         return str(formatted_date)
 
     @staticmethod
+    def date():
+        date = faker.date(pattern="%m/%d/%Y")
+        return date
+
+    @staticmethod
     def subjects():
         num = random.randint(1,14)
         subject_choice = random.sample(SUBJECTS_LIST, num)
@@ -112,3 +118,13 @@ class Generation:
         color = random.choice(AutoCompleteData.COLORS)
         return color
 
+    @staticmethod
+    def date_and_time():
+        month_random = faker.month_name()
+        day_random = str(int(faker.day_of_month()))
+        year_random = faker.year()
+        time_random = faker.date_time_between().strftime("%I:%M %p").lstrip("0")
+        date_and_time = f"{month_random} {day_random}, {year_random} {time_random}"
+        return date_and_time
+
+Generation.date_and_time()

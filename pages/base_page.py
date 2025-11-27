@@ -1,10 +1,9 @@
-from asyncio import timeout
-
 from selenium.webdriver.ie.webdriver import WebDriver
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
-import requests
+
 
 
 class BasePage:
@@ -57,6 +56,15 @@ class BasePage:
         elements = self.driver.find_elements(*locator)
         return elements
 
+    def select_by_text(self, locator, text, timeout = 10):
+        element = WebDriverWait(
+            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        Select(element).select_by_visible_text(text)
+
+    def select_by_value(self, locator, text, timeout = 10):
+        element = WebDriverWait(
+            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        Select(element).select_by_value(text)
 
     def action_double_click(self, locator):
         elements = self.wait_for_element(locator)
@@ -82,8 +90,8 @@ class BasePage:
         url = self.driver.current_url
         return url
 
-    def clear_input_js(self):
-        self.driver.execute_script("document.getElementById('dateOfBirthInput').value = ''")
+    def clear_input_js(self, element_id):
+        self.driver.execute_script(f"document.getElementById('{element_id}').value = ''")
 
     def switch_to_alert(self):
         alert = self.wait_for_alert()

@@ -89,7 +89,7 @@ class FormsPage(BasePage):
     def set_date_of_birth(self) -> str:
         date_of_birth = Generation.date_of_birth()
         self.send_keys(self.DATE_OF_BIRTH, Keys.CONTROL + "a")
-        self.clear_input_js()
+        self.clear_input_js("dateOfBirthInput")
         self.send_keys(self.DATE_OF_BIRTH, date_of_birth)
         self.send_keys(self.DATE_OF_BIRTH, Keys.ENTER)
         return  date_of_birth

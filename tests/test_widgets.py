@@ -1,8 +1,9 @@
 import allure
 import pytest
 
+from conftest import driver
 from data import AccordianData, AutoCompleteData
-from pages.widgets_page import AccordianPage, AutoCompletePage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage
 
 
 @allure.suite("Widgets")
@@ -87,3 +88,44 @@ class TestWidgets:
             tags = auto_complete_page.is_tag_list_empty()
 
             assert len(tags) == 0
+
+
+    @allure.feature("Date Picker")
+    class TestDatePicker:
+        @allure.title("Выбор случайной даты через ручной ввод")
+        def test_select_random_date_manual_input_valid_date(self, driver):
+            date_picker_page = DatePickerPage(driver)
+            date_picker_page.open_date_picker_page()
+            date_expected = date_picker_page.set_date()
+            date_actual = date_picker_page.get_date_value()
+
+            assert date_expected == date_actual
+
+        @allure.title("Выбор даты с помощью календаря")
+        def test_select_date_using_calendar(self, driver):
+            date_picker_page = DatePickerPage(driver)
+            date_picker_page.open_date_picker_page()
+            date_picker_page.open_calendar()
+            date_expected = date_picker_page.select_random_date()
+            date_actual = date_picker_page.get_date_value()
+
+            assert date_actual == date_expected
+
+        @allure.title("Выбор случайной даты и времени через ручной ввод")
+        def test_select_random_date_and_time_manual_input(self, driver):
+            date_picker_page = DatePickerPage(driver)
+            date_picker_page.open_date_picker_page()
+            date_expected = date_picker_page.set_date_and_time()
+            date_actual = date_picker_page.get_date_and_time_value()
+
+            assert date_expected == date_actual
+
+        @allure.title("Выбор даты и времени с помощью календаря")
+        def test_select_date_and_tim_using_calendar(self, driver):
+            date_picker_page = DatePickerPage(driver)
+            date_picker_page.open_date_picker_page()
+            date_picker_page.open_calendar_date_and_time()
+            date_expected = date_picker_page.select_random_date_and_time()
+            date_actual = date_picker_page.get_date_and_time_value()
+
+            assert date_expected == date_actual
