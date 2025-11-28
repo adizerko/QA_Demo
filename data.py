@@ -202,3 +202,8 @@ class ToolTipsData:
         (locator.CONTRARY_LINK, "You hovered over the Contrary"),
         (locator.SECTION_LINK, "You hovered over the 1.10.32")
     ]
+
+class MenuData:
+    MENU_TEXT = ["Main Item 1", "Main Item 2", "Sub Item",
+                 "Sub Item", "SUB SUB LIST »", "Sub Sub Item 1",
+                 "Sub Sub Item 2", "Main Item 3"]

@@ -6,11 +6,11 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL, \
-    TOOL_TIPS_URL
+    TOOL_TIPS_URL, MENU_URL
 from data import AutoCompleteData
 from generation import Generation
 from helper import Helper
-from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
+from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, MenuPageLocators
 from pages.base_page import BasePage
 
 
@@ -346,10 +346,30 @@ class ToolTipsPage(BasePage):
         self.open(TOOL_TIPS_URL)
 
     @allure.step("Наводим курсор на элемент: {locator}")
-    def hover_over(self, locator):
-        self.hover(locator)
+    def hover(self, locator):
+        element = self.wait_for_element(locator)
+        self.action_move_to_element(element)
 
     @allure.step("Получаем текст Tooltip")
     def get_tooltip_text(self):
         text_tool_tip = self.get_text(self.locator.TOOL_TIP)
         return text_tool_tip
+
+
+class MenuPage(BasePage):
+    locators = MenuPageLocators
+
+    @allure.step("Открываем страницу Menu")
+    def open_menu_page(self):
+        self.open(MENU_URL)
+
+    @allure.step("Наводим курсор на каждый пункт меню и получаем их текст")
+    def get_menu_items_text_when_hovered(self):
+        menu_items = self.get_elements(self.locators.MENU_ITEM_LIST)
+        hovered_menu_texts = []
+        for item in menu_items:
+            with allure.step(f"Наводим на пункт меню: '{item.text}'"):
+                self.action_move_to_element(item)
+                hovered_menu_texts.append(item.text)
+
+        return hovered_menu_texts

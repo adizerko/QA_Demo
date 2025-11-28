@@ -118,8 +118,8 @@ class BasePage:
         action.drag_and_drop_by_offset(element, x_coords, y_coords)
         action.perform()
 
-    def hover(self, locator):
-        element = self.wait_for_element(locator)
+    def action_move_to_element(self, locator):
+
         action = ActionChains(self.driver)
-        action.move_to_element(element)
+        action.move_to_element(locator)
         action.perform()

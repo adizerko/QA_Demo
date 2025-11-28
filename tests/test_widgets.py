@@ -2,9 +2,9 @@ import allure
 import pytest
 
 from conftest import driver
-from data import AccordianData, AutoCompleteData, TabsData, ToolTipsData
+from data import AccordianData, AutoCompleteData, TabsData, ToolTipsData, MenuData
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage
+    ToolTipsPage, MenuPage
 
 
 @allure.suite("Widgets")
@@ -195,7 +195,7 @@ class TestWidgets:
 
             assert tabs_page.is_tab_active(tab)
 
-    @allure.title("Tool Tip")
+    @allure.feature("Tool Tip")
     class TestToolTips:
         @pytest.mark.parametrize(
             "hover_target, expected_text", ToolTipsData.TOOLTIPS_HOVER,
@@ -205,7 +205,23 @@ class TestWidgets:
                 self, driver, hover_target, expected_text):
             tool_tips = ToolTipsPage(driver)
             tool_tips.open_tool_tips_page()
-            tool_tips.hover_over(hover_target)
+            tool_tips.hover(hover_target)
             text_tool_tip = tool_tips.get_tooltip_text()
 
             assert text_tool_tip == expected_text
+
+
+    @allure.feature("Menu")
+    class TestMenu:
+        @allure.title("Проверка текста всех пунктов меню при наведении курсора")
+        def test_menu_items(self, driver):
+            menu_page = MenuPage(driver)
+
+            with allure.step("Открываем страницу меню"):
+                menu_page.open_menu_page()
+
+            with allure.step("Собираем текст всех пунктов меню после наведения"):
+                menu_items_text_actual = menu_page.get_menu_items_text_when_hovered()
+
+            with allure.step("Проверяем, что текст пунктов соответствует ожидаемому"):
+                assert menu_items_text_actual == MenuData.MENU_TEXT
