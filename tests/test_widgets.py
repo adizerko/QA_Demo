@@ -2,8 +2,8 @@ import allure
 import pytest
 
 from conftest import driver
-from data import AccordianData, AutoCompleteData
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage
+from data import AccordianData, AutoCompleteData, TabsData
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
 
 
 @allure.suite("Widgets")
@@ -166,3 +166,30 @@ class TestWidgets:
 
             assert value_before_reset != value_after_reset
             assert value_after_reset == '0'
+
+    @allure.feature("Tabs")
+    class TestTabs:
+        @allure.title("Проверка отображения корректного контента при переключении вкладок")
+        @pytest.mark.parametrize(
+            "tab, text, expected_text", TabsData.TABS_TEST_DATA,
+            ids=["What", "Origin", "Use"])
+        def test_tab_content_is_displayed_after_click(
+                self, driver, tab, text, expected_text):
+            tabs_page = TabsPage(driver)
+            tabs_page.open_tabs_page()
+            tabs_page.click_tab(tab)
+            text_actual = tabs_page.get_tab_text(text)
+
+            assert text_actual == expected_text
+
+        @allure.title("Активная вкладка имеет aria-selected = true")
+        @pytest.mark.parametrize(
+            "tab, expected_value", TabsData.ACTIVE_TABS,
+            ids=["WHAT", "ORIGIN", "USE"])
+        def test_active_tab_has_aria_selected_true(
+                self, driver, tab, expected_value):
+            tabs_page = TabsPage(driver)
+            tabs_page.open_tabs_page()
+            tabs_page.click_tab(tab)
+
+            assert tabs_page.is_tab_active(tab)

@@ -5,10 +5,11 @@ import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL
+from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL
 from data import AutoCompleteData
 from generation import Generation
 from helper import Helper
+from locators.widgets_page_locators import TabsPageLocators
 from pages.base_page import BasePage
 
 
@@ -313,3 +314,24 @@ class ProgressBarPage(BasePage):
         time.sleep(2)
         value_after_wait = self.get_value_progress_bar()
         return stop_value, value_after_wait
+
+class TabsPage(BasePage):
+    locator = TabsPageLocators()
+
+    @allure.step("Открываем страницу Tabs")
+    def open_tabs_page(self):
+        self.open(TABS_URL)
+
+    @allure.step("Кликаем по вкладке")
+    def click_tab(self, tab_locator):
+        self.click(tab_locator)
+
+    @allure.step("Получаем текст контента активной вкладки")
+    def get_tab_text(self, locator_text):
+        text = self.get_text(locator_text)
+        return text
+
+    @allure.step("Проверяем, что вкладка активна (aria-selected='true')")
+    def is_tab_active(self, locator):
+        value = self.get_attribute(locator, "aria-selected")
+        return value == "true"
