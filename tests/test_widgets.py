@@ -2,8 +2,9 @@ import allure
 import pytest
 
 from conftest import driver
-from data import AccordianData, AutoCompleteData, TabsData
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
+from data import AccordianData, AutoCompleteData, TabsData, ToolTipsData
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
+    ToolTipsPage
 
 
 @allure.suite("Widgets")
@@ -193,3 +194,18 @@ class TestWidgets:
             tabs_page.click_tab(tab)
 
             assert tabs_page.is_tab_active(tab)
+
+    @allure.title("Tool Tip")
+    class TestToolTips:
+        @pytest.mark.parametrize(
+            "hover_target, expected_text", ToolTipsData.TOOLTIPS_HOVER,
+            ids=["button", "input", "contrary", "section"])
+        @allure.title("Tooltip отображается при наведении на элемент")
+        def test_tooltip_is_displayed_on_element_hover(
+                self, driver, hover_target, expected_text):
+            tool_tips = ToolTipsPage(driver)
+            tool_tips.open_tool_tips_page()
+            tool_tips.hover_over(hover_target)
+            text_tool_tip = tool_tips.get_tooltip_text()
+
+            assert text_tool_tip == expected_text

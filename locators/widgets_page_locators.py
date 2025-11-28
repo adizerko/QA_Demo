@@ -10,3 +10,11 @@ class TabsPageLocators:
     USE_TAB_TEXT = By.XPATH, "//div[@id='demo-tabpane-use']/p"
     MORE_TAB = By.ID, "demo-tab-more"
     MORE_TAB_TEXT = By.XPATH, "//div[@id='demo-tabpane-more']/p"
+
+class ToolTipsPageLocators:
+    BUTTON = By.ID, "toolTipButton"
+    INPUT = By.ID, "toolTipTextField"
+    CONTRARY_LINK = By.XPATH, "//div[@id='texToolTopContainer']/a[1]"
+    SECTION_LINK = By.XPATH, "//div[@id='texToolTopContainer']/a[2]"
+
+    TOOL_TIP = By.CLASS_NAME, "tooltip-inner"

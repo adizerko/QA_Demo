@@ -5,11 +5,12 @@ import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
-from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL
+from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL, \
+    TOOL_TIPS_URL
 from data import AutoCompleteData
 from generation import Generation
 from helper import Helper
-from locators.widgets_page_locators import TabsPageLocators
+from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 from pages.base_page import BasePage
 
 
@@ -335,3 +336,20 @@ class TabsPage(BasePage):
     def is_tab_active(self, locator):
         value = self.get_attribute(locator, "aria-selected")
         return value == "true"
+
+
+class ToolTipsPage(BasePage):
+    locator = ToolTipsPageLocators()
+
+    @allure.step("Открываем страницу Tool Tips")
+    def open_tool_tips_page(self):
+        self.open(TOOL_TIPS_URL)
+
+    @allure.step("Наводим курсор на элемент: {locator}")
+    def hover_over(self, locator):
+        self.hover(locator)
+
+    @allure.step("Получаем текст Tooltip")
+    def get_tooltip_text(self):
+        text_tool_tip = self.get_text(self.locator.TOOL_TIP)
+        return text_tool_tip

@@ -1,7 +1,7 @@
 from attr import dataclass
 from selenium.webdriver.common.by import By
 
-from locators.widgets_page_locators import TabsPageLocators
+from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 
 CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
                      "Documents", "Downloads", "Word File.doc",
@@ -173,7 +173,7 @@ class AutoCompleteData:
 class DatePickerData:
     pass
 
-@dataclass
+
 class TabsData:
     locator = TabsPageLocators()
 
@@ -191,4 +191,14 @@ class TabsData:
         (locator.WHAT_TAB, "true"),
         (locator.ORIGIN_TAB, "true"),
         (locator.USE_TAB, "true")
+    ]
+
+
+class ToolTipsData:
+    locator = ToolTipsPageLocators()
+    TOOLTIPS_HOVER = [
+        (locator.BUTTON, "You hovered over the Button"),
+        (locator.INPUT, "You hovered over the text field"),
+        (locator.CONTRARY_LINK, "You hovered over the Contrary"),
+        (locator.SECTION_LINK, "You hovered over the 1.10.32")
     ]
