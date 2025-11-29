@@ -207,3 +207,11 @@ class MenuData:
     MENU_TEXT = ["Main Item 1", "Main Item 2", "Sub Item",
                  "Sub Item", "SUB SUB LIST »", "Sub Sub Item 1",
                  "Sub Sub Item 2", "Main Item 3"]
+
+class SelectMenuData:
+    OLD_STYLE_SELECT_MENU_OPTIONS = [
+        "Red","Blue","Green","Yellow","Purple","Black","White","Voilet","Indigo","Magenta","Aqua"
+    ]
+
+    MULTISELECT_DROP_DOWN_OPTIONS = ["Green", "Blue", "Black", "Red",]
+    STANDARD_MULTI_SELECT_OPTIONS = ["Volvo", "Saab", "Opel", "Audi"]

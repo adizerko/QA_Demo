@@ -4,7 +4,7 @@ from typing import Any
 
 from faker import Faker
 
-from data import DEPARTMENT, SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData
+from data import DEPARTMENT, SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData, SelectMenuData
 
 faker = Faker()
 
@@ -127,4 +127,21 @@ class Generation:
         date_and_time = f"{month_random} {day_random}, {year_random} {time_random}"
         return date_and_time
 
-Generation.date_and_time()
+    @staticmethod
+    def color_for_old_menu():
+        color = random.choice(SelectMenuData.OLD_STYLE_SELECT_MENU_OPTIONS)
+        return color
+
+    @staticmethod
+    def colors_for_multiselect_drop_down():
+        colors = SelectMenuData.MULTISELECT_DROP_DOWN_OPTIONS
+        num = random.randint(1, len(colors))
+        colors_choice = random.sample(colors, num)
+        return colors_choice
+
+    @staticmethod
+    def cars_for_standard_select_menu():
+        cars = SelectMenuData.STANDARD_MULTI_SELECT_OPTIONS
+        num = random.randint(1, len(cars))
+        cars_choices = random.sample(cars, num)
+        return cars_choices

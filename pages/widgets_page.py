@@ -6,11 +6,11 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL, \
-    TOOL_TIPS_URL, MENU_URL
-from data import AutoCompleteData
+    TOOL_TIPS_URL, MENU_URL, SELECT_MENU_URL
+from data import AutoCompleteData, SelectMenuData
 from generation import Generation
 from helper import Helper
-from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, MenuPageLocators
+from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, MenuPageLocators, SelectMenuLocators
 from pages.base_page import BasePage
 
 
@@ -373,3 +373,65 @@ class MenuPage(BasePage):
                 hovered_menu_texts.append(item.text)
 
         return hovered_menu_texts
+
+
+class SelectMenuPage(BasePage):
+    locators = SelectMenuLocators
+
+    @allure.step("Открыть страницу Select Menu")
+    def open_select_menu_page(self):
+        self.open(SELECT_MENU_URL)
+
+    @allure.step("Выбрать случайное значение в Select Value")
+    def set_select_value(self):
+        self.click(self.locators.SELECT_VALUE_INPUT)
+        elem, expected_text = self.random_choice_option(self.locators.SELECT_VALUE_OPTION_LIST)
+        self.click(elem)
+        actual_text = self.get_text(self.locators.SELECT_VALUE_TEXT)
+        return expected_text, actual_text
+
+    @allure.step("Выбрать случайное значение в Select One")
+    def set_select_one(self):
+        self.click(self.locators.SELECT_ONE_INPUT)
+        elem, expected_text = self.random_choice_option(self.locators.SELECT_ONE_OPTION_LIST)
+        self.click(elem)
+        actual_text = self.get_text(self.locators.SELECT_ONE_TEXT)
+        return expected_text, actual_text
+
+    @allure.step("Выбрать цвет в Old Style Select Menu")
+    def set_old_style_select_menu(self):
+        color_option = Generation.color_for_old_menu()
+        self.click(self.locators.OLD_STYLE_SELECT_MENU)
+        self.select_by_text(self.locators.OLD_STYLE_SELECT_MENU, color_option)
+
+        actual_color_options = self.select_get_first_option_text(
+            self.locators.OLD_STYLE_SELECT_MENU)
+        return color_option, actual_color_options
+
+    @allure.step("Выбрать несколько случайных цветов в MultiSelect Dropdown")
+    def set_multiselect_drop_down(self):
+        expected_colors = Generation.colors_for_multiselect_drop_down()
+        self.click(self.locators.MULTISELECT_DROP_DOWN)
+
+        for color in expected_colors:
+            locator = By.XPATH, f"//div[text()='{color}']"
+            self.click(locator)
+
+        elements_choices_colors = self.get_elements(self.locators.MULTISELECT_DROP_DOWN_CHOICES_COLORS)
+        actual_colors = [el.text for el in elements_choices_colors]
+        return expected_colors, actual_colors
+
+    @allure.step("Выбрать несколько машин в стандартном Multi Select")
+    def set_standard_multi_select(self):
+        cars = Generation.cars_for_standard_select_menu()
+
+        for car in cars:
+            self.select_by_text(self.locators.STANDARD_MULTI_SELECT,f"{car}")
+
+        cars_selected = self.select_all_options_text(self.locators.STANDARD_MULTI_SELECT)
+        return cars, cars_selected
+
+    def random_choice_option(self, locator):
+        elements = self.get_elements(locator)
+        elem = random.choice(elements)
+        return elem, elem.text

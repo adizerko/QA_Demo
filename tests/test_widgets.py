@@ -4,7 +4,7 @@ import pytest
 from conftest import driver
 from data import AccordianData, AutoCompleteData, TabsData, ToolTipsData, MenuData
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage, MenuPage
+    ToolTipsPage, MenuPage, SelectMenuPage
 
 
 @allure.suite("Widgets")
@@ -225,3 +225,46 @@ class TestWidgets:
 
             with allure.step("Проверяем, что текст пунктов соответствует ожидаемому"):
                 assert menu_items_text_actual == MenuData.MENU_TEXT
+
+
+    @allure.feature("Select Menu")
+    class TestSelectMenu:
+        @allure.title("Выбор случайного значения в Select Value")
+        def test_select_value(self,driver):
+            select_menu_page = SelectMenuPage(driver)
+            select_menu_page.open_select_menu_page()
+            expected_text_value, actual_text_value = select_menu_page.set_select_value()
+
+            assert expected_text_value == actual_text_value
+
+        @allure.title("Выбор случайного значения в Select One")
+        def test_select_one(self, driver):
+            select_menu_page = SelectMenuPage(driver)
+            select_menu_page.open_select_menu_page()
+            expected_text_one, actual_text_one = select_menu_page.set_select_one()
+
+            assert expected_text_one == actual_text_one
+
+        @allure.title("Выбор цвета в старом стиле Select Menu")
+        def test_old_style_select_menu(self, driver):
+            select_menu_page = SelectMenuPage(driver)
+            select_menu_page.open_select_menu_page()
+            expected_color, actual_color = select_menu_page.set_old_style_select_menu()
+
+            assert expected_color == actual_color
+
+        @allure.title("Выбор нескольких цветов в MultiSelect Dropdown")
+        def test_multiselect_drop_down(self, driver):
+            select_menu_page = SelectMenuPage(driver)
+            select_menu_page.open_select_menu_page()
+            expected_colors, actual_colors = select_menu_page.set_multiselect_drop_down()
+
+            assert expected_colors == actual_colors
+
+        @allure.title("Выбор нескольких машин в стандартном Multi Select")
+        def test_standard_multi_select(self, driver):
+            select_menu_page = SelectMenuPage(driver)
+            select_menu_page.open_select_menu_page()
+            expected_cars, actual_cars = select_menu_page.set_standard_multi_select()
+
+            assert expected_cars == actual_cars

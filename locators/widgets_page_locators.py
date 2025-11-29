@@ -33,3 +33,20 @@ class MenuPageLocators:
     SUB_SUB_ITEM_2 = By.XPATH, "//a[text()='Sub Sub Item 2']"
 
     MAIN_ITEM_3 = By.XPATH, "//a[text()='Main Item 3']"
+
+class SelectMenuLocators:
+    SELECT_VALUE_INPUT = By.ID, "withOptGroup"
+    SELECT_VALUE_OPTION_LIST = By.XPATH, "//div[contains(@id, 'react-select-2-option')]"
+    SELECT_VALUE_TEXT = By.XPATH, "//div[@id='withOptGroup']//div[@class=' css-1uccc91-singleValue']"
+
+    SELECT_ONE_INPUT = By.ID, "selectOne"
+    SELECT_ONE_OPTION_LIST = By.XPATH, "//div[contains(@id, 'react-select-3-option')]"
+    SELECT_ONE_TEXT = By.XPATH, "//div[@id='selectOne']//div[@class=' css-1uccc91-singleValue']"
+
+    OLD_STYLE_SELECT_MENU = By.ID, "oldSelectMenu"
+
+    MULTISELECT_DROP_DOWN = By.XPATH, "(//div[@class=' css-2b097c-container'])[3]"
+    MULTISELECT_DROP_DOWN_OPTIONS = By.XPATH, "//div[contains(@id, 'react-select-4-option-')]"
+    MULTISELECT_DROP_DOWN_CHOICES_COLORS = By.CLASS_NAME, "css-12jo7m5"
+
+    STANDARD_MULTI_SELECT = By.ID, "cars"

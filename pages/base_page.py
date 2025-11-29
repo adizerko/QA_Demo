@@ -1,3 +1,4 @@
+from requests import options
 from selenium.webdriver.ie.webdriver import WebDriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -65,6 +66,20 @@ class BasePage:
         element = WebDriverWait(
             self.driver, timeout).until(EC.element_to_be_clickable(locator))
         Select(element).select_by_value(text)
+
+    def select_get_first_option_text(self, locator, timeout: int = 10):
+        element = WebDriverWait(
+            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        return Select(element).first_selected_option.text
+
+    def select_all_options_text(self, locator, timeout: int = 10):
+        element = WebDriverWait(
+            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        options_text = []
+        for sel_el in Select(element).all_selected_options:
+            options_text.append(sel_el.text)
+
+        return options_text
 
     def action_double_click(self, locator):
         elements = self.wait_for_element(locator)
