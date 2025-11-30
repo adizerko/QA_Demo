@@ -145,3 +145,9 @@ class Generation:
         num = random.randint(1, len(cars))
         cars_choices = random.sample(cars, num)
         return cars_choices
+
+    @staticmethod
+    def selecting_random_elements(elements):
+        quantity = random.randint(1, len(elements))
+        selected_elements  = random.sample(elements, quantity)
+        return selected_elements

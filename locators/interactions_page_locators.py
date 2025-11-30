@@ -22,3 +22,13 @@ class SortablePageLocators:
     SEVEN_GRID = By.XPATH, "//div[@class='create-grid']/div[text()='Seven']"
     EIGHT_GRID = By.XPATH, "//div[@class='create-grid']/div[text()='Eight']"
     NINE_GRID = By.XPATH, "//div[@class='create-grid']/div[text()='Nine']"
+
+
+class SelectablePageLocators:
+    LIST = By.ID, "demo-tab-list"
+    ITEMS_LIST = By.XPATH, "//ul[@id='verticalListContainer']/li[contains(@class, 'list-group-item')]"
+    SELECT_ITEMS_LIST = By.XPATH, "//ul[@id='verticalListContainer']/li[contains(@class, 'active')]"
+
+    GRID = By.ID, "demo-tab-grid"
+    GRID_LIST = By.XPATH, "//div[@id='gridContainer']//li[contains(@class, 'list-group-item')]"
+    GRID_SELECT_LIST = By.XPATH, "//div[@id='gridContainer']//li[contains(@class, 'active')]"

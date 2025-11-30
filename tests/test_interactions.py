@@ -1,8 +1,10 @@
+import time
+
 import allure
 
 from data import SortableData
-from locators.interactions_page_locators import SortablePageLocators
-from pages.interactions_page import SortablePage
+from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators
+from pages.interactions_page import SortablePage, SelectablePage
 
 
 @allure.suite("Interactions")
@@ -32,3 +34,29 @@ class TestInteractions:
                 SortablePageLocators.TAB_GRIDS)
 
             assert after_sort == SortableData.expected_sort_by_grid
+
+    class TestSelectable:
+        @allure.title("Проверка выбора случайных элементов в List")
+        def test_selectable_list(self, driver):
+            selectable_page = SelectablePage(driver)
+            selectable_page.open_selectable_page()
+
+            expected_selected_items = selectable_page.select_random_items(
+                SelectablePageLocators.ITEMS_LIST)
+            actual_selected_items = selectable_page.get_selected_items_text(
+                SelectablePageLocators.SELECT_ITEMS_LIST)
+
+            assert expected_selected_items == actual_selected_items
+
+        @allure.title("Проверка выбора случайных элементов в Grid")
+        def test_selectable_grid(self, driver):
+            selectable_page = SelectablePage(driver)
+            selectable_page.open_selectable_page()
+            selectable_page.click_tab_grid()
+
+            expected_selected_items = selectable_page.select_random_items(
+                SelectablePageLocators.GRID_LIST)
+            actual_selected_items = selectable_page.get_selected_items_text(
+                SelectablePageLocators.GRID_SELECT_LIST)
+
+            assert expected_selected_items == actual_selected_items
