@@ -1,4 +1,3 @@
-from requests import options
 from selenium.webdriver.ie.webdriver import WebDriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -58,23 +57,19 @@ class BasePage:
         return elements
 
     def select_by_text(self, locator, text, timeout = 10):
-        element = WebDriverWait(
-            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        element = self.wait_for_clickable(locator)
         Select(element).select_by_visible_text(text)
 
     def select_by_value(self, locator, text, timeout = 10):
-        element = WebDriverWait(
-            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        element = self.wait_for_clickable(locator)
         Select(element).select_by_value(text)
 
     def select_get_first_option_text(self, locator, timeout: int = 10):
-        element = WebDriverWait(
-            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        element = self.wait_for_clickable(locator)
         return Select(element).first_selected_option.text
 
     def select_all_options_text(self, locator, timeout: int = 10):
-        element = WebDriverWait(
-            self.driver, timeout).until(EC.element_to_be_clickable(locator))
+        element = self.wait_for_clickable(locator)
         options_text = []
         for sel_el in Select(element).all_selected_options:
             options_text.append(sel_el.text)
@@ -123,9 +118,7 @@ class BasePage:
         return frame
 
     def is_displayed(self, locator, timeout=10):
-        element = WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located(locator)
-        )
+        element = self.wait_for_visible(locator)
         return element.is_displayed()
 
     def action_drag_and_drop_by_offset(self, element, x_coords, y_coords):
@@ -134,7 +127,13 @@ class BasePage:
         action.perform()
 
     def action_move_to_element(self, locator):
-
         action = ActionChains(self.driver)
         action.move_to_element(locator)
+        action.perform()
+
+    def drag_and_drop(self, first_locator, second_locator, timeout: int = 10):
+        source = self.wait_for_clickable(first_locator)
+        target = self.wait_for_clickable(second_locator)
+        action = ActionChains(self.driver)
+        action.drag_and_drop(source, target)
         action.perform()

@@ -1,6 +1,7 @@
 from attr import dataclass
 from selenium.webdriver.common.by import By
 
+from locators.interactions_page_locators import SortablePageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 
 CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
@@ -215,3 +216,34 @@ class SelectMenuData:
 
     MULTISELECT_DROP_DOWN_OPTIONS = ["Green", "Blue", "Black", "Red",]
     STANDARD_MULTI_SELECT_OPTIONS = ["Volvo", "Saab", "Opel", "Audi"]
+
+class SortableData:
+    locators = SortablePageLocators
+
+    ITEMS_LIST_TO_REVERSE = [
+        locators.SIX_LIST,
+        locators.FIVE_LIST,
+        locators.FOUR_LIST,
+        locators.THREE_LIST,
+        locators.TWO_LIST,
+    ]
+
+    ITEMS_GRID_TO_REVERSE = [
+        locators.NINE_GRID,
+        locators.EIGHT_GRID,
+        locators.SEVEN_GRID,
+        locators.SIX_GRID,
+        locators.FIVE_GRID,
+        locators.FOUR_GRID,
+        locators.THREE_GRID,
+        locators.TWO_GRID
+
+    ]
+
+    expected_sort_by_list = ["Six", "Five", "Four", "Three", "Two", "One"]
+    expected_sort_by_grid = ["Nine","Eight","Seven","Six", "Five", "Four",
+                             "Three", "Two", "One"]
+    SORT = [
+        (locators.LIST, locators.TAB_LISTS, ITEMS_LIST_TO_REVERSE, locators.ONE_LIST, expected_sort_by_list),
+        (locators.GRID, locators.TAB_GRIDS, ITEMS_GRID_TO_REVERSE, locators.ONE_GRID, expected_sort_by_grid)
+    ]
