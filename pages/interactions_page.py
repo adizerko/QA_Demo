@@ -1,9 +1,10 @@
-import allure
-from faker.generator import random
+import random
 
-from curl import SORTABLE_URL, SELECTABLE_URL
+import allure
+
+from curl import SORTABLE_URL, SELECTABLE_URL, RESIZABLE_URL
 from generation import Generation
-from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators
+from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators, ResizablePageLocators
 from pages.base_page import BasePage
 
 
@@ -67,3 +68,28 @@ class SelectablePage(BasePage):
         selected_items = [item.text for item in selectable_elements]
         allure.attach(", ".join(selected_items), "Фактические выбранные элементы")
         return set(selected_items)
+
+
+class ResizablePage(BasePage):
+    locators = ResizablePageLocators
+
+    @allure.step("Открываем страницу 'Resizable'")
+    def open_resizable_page(self):
+        self.open(RESIZABLE_URL)
+
+    @allure.step("Изменяем размеры элемента до ширины {target_width}px и высоты {target_height}px")
+    def resize_box(self, target_width: int, target_height: int):
+        current_width, current_height = self.get_box_size()
+
+        delta_x = target_width - current_width
+        delta_y = target_height - current_height
+
+        handle  = self.wait_for_element(self.locators.RESIZABLE_RESTRICTION_BOX_HANDLE)
+        self.action_drag_and_drop_by_offset(handle, delta_x, delta_y)
+
+    @allure.step("Получаем текущие размеры элемента")
+    def get_box_size(self):
+        attribute = self.get_attribute(self.locators.RESIZABLE_RESTRICTION_BOX, "style")
+        width = int(attribute.split("th: ")[1].split("px")[0])
+        height = int(attribute.split("ht: ")[1].split("px")[0])
+        return width, height

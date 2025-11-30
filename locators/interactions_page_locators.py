@@ -32,3 +32,11 @@ class SelectablePageLocators:
     GRID = By.ID, "demo-tab-grid"
     GRID_LIST = By.XPATH, "//div[@id='gridContainer']//li[contains(@class, 'list-group-item')]"
     GRID_SELECT_LIST = By.XPATH, "//div[@id='gridContainer']//li[contains(@class, 'active')]"
+
+
+class ResizablePageLocators:
+    RESIZABLE_RESTRICTION_BOX = By.ID, "resizableBoxWithRestriction"
+    RESIZABLE_RESTRICTION_BOX_HANDLE = By.XPATH, "//div[@id='resizableBoxWithRestriction']//span"
+
+    RESIZABLE_BOX = By.ID, "resizable"
+    RESIZABLE_BOX_HANDLE = By.XPATH, "//div[@id='resizable']//span"

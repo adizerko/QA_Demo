@@ -1,7 +1,7 @@
-from attr import dataclass
+from faker.generator import random
 from selenium.webdriver.common.by import By
 
-from locators.interactions_page_locators import SortablePageLocators
+from locators.interactions_page_locators import SortablePageLocators, ResizablePageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 
 CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
@@ -246,4 +246,12 @@ class SortableData:
     SORT = [
         (locators.LIST, locators.TAB_LISTS, ITEMS_LIST_TO_REVERSE, locators.ONE_LIST, expected_sort_by_list),
         (locators.GRID, locators.TAB_GRIDS, ITEMS_GRID_TO_REVERSE, locators.ONE_GRID, expected_sort_by_grid)
+    ]
+
+
+class ResizableData:
+    BOX_SIZES = [
+        (150, 150),
+        (500, 300),
+        (random.randint(150,500), random.randint(150,300))
     ]
