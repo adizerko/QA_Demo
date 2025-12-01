@@ -40,3 +40,32 @@ class ResizablePageLocators:
 
     RESIZABLE_BOX = By.ID, "resizable"
     RESIZABLE_BOX_HANDLE = By.XPATH, "//div[@id='resizable']//span"
+
+
+class DroppablePageLocators:
+    TAB_SIMPLE = By.ID, "droppableExample-tab-simple"
+    DRAGGABLE = By.ID, "draggable"
+    DROPPABLE = By.ID, "droppable"
+    DROPPABLE_TEXT = By.XPATH, "//div[@id='simpleDropContainer']//p"
+
+    TAB_ACCEPT = By.ID, "droppableExample-tab-accept"
+    ACCEPTABLE = By.ID, "acceptable"
+    NOT_ACCEPTABLE = By.ID, "notAcceptable"
+    ACCEPT_DROPPABLE = By.XPATH, "//div[@id='acceptDropContainer']//div[@id='droppable']"
+
+    TAB_PREVENT_PROPOGATION = By.ID, "droppableExample-tab-preventPropogation"
+    DRAG_ME = By.ID, "dragBox"
+    OUTER_DROPPABLE = By.ID, "notGreedyDropBox"
+    OUTER_DROPPABLE_TEXT = By.XPATH, "//div[@id='notGreedyDropBox']/p"
+    INNER_DROPPABLE = By.ID, "notGreedyInnerDropBox"
+    INNER_DROPPABLE_TEXT = By.XPATH, "//div[@id='notGreedyInnerDropBox']/p"
+    GREEDY_DROP_BOX = By.ID, "greedyDropBox"
+    GREEDY_DROP_BOX_TEXT = By.XPATH, "//div[@id='greedyDropBox']/p"
+    GREEDY_DROP_BOX_INNER = By.ID, "greedyDropBoxInner"
+    GREEDY_DROP_BOX_INNER_TEXT = By.XPATH, "//div[@id='greedyDropBoxInner']/p"
+
+    TAB_REVERT_DRAGGABLE = By.ID, "droppableExample-tab-revertable"
+    REVERT_ABLE = By.ID, "revertable"
+    NOT_REVERT_ABLE = By.ID, "notRevertable"
+    DROPPABLE_REVERT = By.XPATH, "(//div[@id='droppable'])[3]"
+    DROPPABLE_REVERT_TEXT = By.XPATH, "(//div[@id='droppable'])[3]/p"

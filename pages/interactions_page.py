@@ -1,10 +1,12 @@
 import random
+import time
 
 import allure
 
-from curl import SORTABLE_URL, SELECTABLE_URL, RESIZABLE_URL
+from curl import SORTABLE_URL, SELECTABLE_URL, RESIZABLE_URL, DROPPABLE_URL
 from generation import Generation
-from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators, ResizablePageLocators
+from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators, ResizablePageLocators, \
+    DroppablePageLocators
 from pages.base_page import BasePage
 
 
@@ -93,3 +95,90 @@ class ResizablePage(BasePage):
         width = int(attribute.split("th: ")[1].split("px")[0])
         height = int(attribute.split("ht: ")[1].split("px")[0])
         return width, height
+
+
+class DroppablePage(BasePage):
+    locators = DroppablePageLocators
+
+    @allure.step("Открываем страницу Droppable")
+    def open_droppable_page(self):
+        self.open(DROPPABLE_URL)
+
+    @allure.step("Переходим на вкладку Accept")
+    def click_accept_tab(self):
+        self.click(self.locators.TAB_ACCEPT)
+
+    @allure.step("Переходим на вкладку Prevent Propagation")
+    def click_prevent_propogation_tab(self):
+        self.click(self.locators.TAB_PREVENT_PROPOGATION)
+
+    @allure.step("Переходим на вкладку Revert Draggable")
+    def click_revert_draggable_tab(self):
+        self.click(self.locators.TAB_REVERT_DRAGGABLE)
+
+    @allure.step("Перетаскиваем элемент в Simple box")
+    def drop_draggable_to_simple_box(self):
+        self.drag_and_drop(self.locators.DRAGGABLE, self.locators.DROPPABLE)
+
+    @allure.step("Перетаскиваем Acceptable в Accept box")
+    def drop_acceptable_to_accept_box(self):
+        self.drag_and_drop(self.locators.ACCEPTABLE, self.locators.ACCEPT_DROPPABLE)
+
+    @allure.step("Перетаскиваем Not Acceptable в Accept box")
+    def drop_not_acceptable_to_accept_box(self):
+        self.drag_and_drop(self.locators.NOT_ACCEPTABLE, self.locators.ACCEPT_DROPPABLE)
+
+    @allure.step("Перетаскиваем элемент внутрь Not Greedy box")
+    def drop_on_inner_not_greedy_box(self):
+        self.drag_and_drop(self.locators.DRAG_ME, self.locators.INNER_DROPPABLE)
+
+    @allure.step("Перетаскиваем элемент внутрь Greedy box")
+    def drop_on_inner_greedy_box(self):
+        self.drag_and_drop(self.locators.DRAG_ME, self.locators.GREEDY_DROP_BOX_INNER)
+
+    @allure.step("Перетаскиваем Will Revert и ждём возврата")
+    def drop_will_revert(self):
+        self.drag_and_drop(self.locators.REVERT_ABLE, self.locators.DROPPABLE_REVERT)
+        time.sleep(0.5)
+
+    @allure.step("Перетаскиваем Not Revert")
+    def drop_not_revert(self):
+        self.drag_and_drop(self.locators.NOT_REVERT_ABLE, self.locators.DROPPABLE_REVERT)
+
+    @allure.step("Получаем текст в simple droppable")
+    def get_text_drop_box(self):
+        return self.get_text(self.locators.DROPPABLE_TEXT)
+
+    @allure.step("Получаем текст Accept droppable")
+    def drop_box_accept_text(self):
+        return self.get_text(self.locators.ACCEPT_DROPPABLE)
+
+    @allure.step("Получаем текст Outer droppable")
+    def outer_text(self):
+        return self.get_text(self.locators.OUTER_DROPPABLE_TEXT)
+
+    @allure.step("Получаем текст Inner droppable")
+    def inner_text(self):
+        return self.get_text(self.locators.INNER_DROPPABLE_TEXT)
+
+    @allure.step("Получаем текст Greedy Inner droppable")
+    def greedy_inner_text(self):
+        return self.get_text(self.locators.GREEDY_DROP_BOX_INNER_TEXT)
+
+    @allure.step("Получаем текст Greedy Outer droppable")
+    def greedy_outer_text(self):
+        return self.get_text(self.locators.GREEDY_DROP_BOX_TEXT)
+
+    @allure.step("Получаем текст для зоны Revert droppable")
+    def droppable_revert_text(self):
+        return self.get_text(self.locators.DROPPABLE_REVERT_TEXT)
+
+    @allure.step("Получаем позицию Will Revert box")
+    def get_position_revert_box(self):
+        position = self.get_element_position(self.locators.REVERT_ABLE)
+        return position
+
+    @allure.step("Получаем позицию Not Revert box")
+    def get_position_not_revert_box(self):
+        position = self.get_element_position(self.locators.NOT_REVERT_ABLE)
+        return position

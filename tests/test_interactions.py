@@ -1,10 +1,11 @@
+import time
 
 import allure
 import pytest
 
-from data import SortableData, ResizableData
+from data import SortableData, ResizableData, DroppableData
 from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
 
 
 @allure.suite("Interactions")
@@ -75,3 +76,87 @@ class TestInteractions:
 
             assert actual_width == width, f"Ожидалось {width}px, получено {actual_width}px"
             assert actual_height == height, f"Ожидалось {height}px, получено {actual_height}px"
+
+
+    @allure.feature("Droppable")
+    class TestDroppable:
+        @allure.story("Simple droppable")
+        def test_simple_drop(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.drop_draggable_to_simple_box()
+            actual_text = droppable_page.get_text_drop_box()
+
+            assert actual_text == DroppableData.success_text
+
+        @allure.story("Accept — box принимает только Acceptable")
+        def test_accept_drop(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.click_accept_tab()
+            droppable_page.drop_acceptable_to_accept_box()
+            actual_text = droppable_page.drop_box_accept_text()
+
+            assert actual_text == DroppableData.success_text
+
+        @allure.story("Accept — Not Acceptable не активирует зону")
+        def test_not_accept(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.click_accept_tab()
+            droppable_page.drop_not_acceptable_to_accept_box()
+            actual_text = droppable_page.drop_box_accept_text()
+
+            assert actual_text == DroppableData.expected_not_drop_text
+
+        @allure.story("Prevent Propagation — Not Greedy обновляет оба бокса")
+        def test_not_greedy_updates_both(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.click_prevent_propogation_tab()
+            droppable_page.drop_on_inner_not_greedy_box()
+
+            outer_after_drop = droppable_page.outer_text()
+            inner_after_drop = droppable_page.inner_text()
+
+            assert outer_after_drop == DroppableData.success_text
+            assert inner_after_drop == DroppableData.success_text
+
+        @allure.story("Prevent Propagation — Greedy обновляется только внутренний бокс")
+        def test_greedy_updates_only_inner(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.click_prevent_propogation_tab()
+            droppable_page.drop_on_inner_greedy_box()
+
+            actual_text_outer = droppable_page.greedy_outer_text()
+            actual_text_inner = droppable_page.greedy_inner_text()
+
+            assert actual_text_outer == DroppableData.outer_default_text
+            assert actual_text_inner == DroppableData.success_text
+
+        @allure.story("Revert — элемент возвращается обратно после drop")
+        def test_revert_after_drop(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.click_revert_draggable_tab()
+            before_position = droppable_page.get_position_revert_box()
+            droppable_page.drop_will_revert()
+
+            actual_text_revert_box = droppable_page.droppable_revert_text()
+            after_position = droppable_page.get_position_revert_box()
+
+            assert actual_text_revert_box == DroppableData.success_text
+            assert before_position == after_position
+
+        @allure.story("Revert — Not Revert остаётся на новой позиции")
+        def test_not_revert_after_drop(self, driver):
+            droppable_page = DroppablePage(driver)
+            droppable_page.open_droppable_page()
+            droppable_page.click_revert_draggable_tab()
+            droppable_page.drop_not_revert()
+            position_after_move = droppable_page.get_position_not_revert_box()
+            actual_text_not_revert_box = droppable_page.droppable_revert_text()
+
+            assert position_after_move == DroppableData.position_after_move
+            assert actual_text_not_revert_box == DroppableData.success_text

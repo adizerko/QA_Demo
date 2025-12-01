@@ -93,6 +93,11 @@ class BasePage:
         attribute = element.get_attribute(attribute)
         return attribute
 
+    def get_attribute_v2(self, locator, attribute, timeout: int = 10):
+        element = self.wait_for_clickable(locator, timeout)
+        attribute = element.get_attribute(attribute)
+        return attribute
+
     def get_attribute_via_presence(self, locator, value, timeout: int =10):
         element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
         return element.get_attribute(value)
@@ -126,6 +131,14 @@ class BasePage:
         action.drag_and_drop_by_offset(element, x_coords, y_coords)
         action.perform()
 
+    def action_drag_and_drop_to_element_bottom(self, source, target, height):
+        actions = ActionChains(self.driver)
+        actions.click_and_hold(source) \
+            .move_to_element(target) \
+            .move_by_offset(0, height // 2 - 5) \
+            .release() \
+            .perform()
+
     def action_move_to_element(self, locator):
         action = ActionChains(self.driver)
         action.move_to_element(locator)
@@ -137,3 +150,8 @@ class BasePage:
         action = ActionChains(self.driver)
         action.drag_and_drop(source, target)
         action.perform()
+
+    def get_element_position(self, locator, timeout: int = 10):
+        element = self.wait_for_element(locator, timeout)
+        position = element.location
+        return position

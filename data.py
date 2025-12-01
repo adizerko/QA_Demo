@@ -255,3 +255,12 @@ class ResizableData:
         (500, 300),
         (random.randint(150,500), random.randint(150,300))
     ]
+
+
+class DroppableData:
+    success_text = "Dropped!"
+    expected_not_drop_text = "Drop here"
+    expected_inner_text = "Inner droppable (not greedy)"
+    outer_default_text = "Outer droppable"
+    position_after_move = {'x': 1142, 'y': 385}
+
