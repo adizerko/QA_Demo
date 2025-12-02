@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 
 from curl import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, WEB_TABLES_URL, BUTTONS_URL, LINKS_URL, \
     UPLOAD_AND_DOWNLOAD_URL
-from data import CHECKBOX_ELEMENTS, RADIO_BUTTON_ELEMENTS
+from data import CHECKBOX_ELEMENTS
 from generation import Generation
 from pages.base_page import BasePage
 
@@ -23,7 +23,6 @@ class TextBox(BasePage):
     USER_EMAIL_RESULT = By.ID, "email"
     USER_CURRENT_ADDRESS_RESULT = By.XPATH, "//p[@id='currentAddress']"
     USER_PERMANENT_ADDRESS_RESULT = By.XPATH, "//p[@id='permanentAddress']"
-
 
     def open_text_box_page(self):
         self.open(TEXT_BOX_URL)
@@ -93,7 +92,6 @@ class CheckBox(BasePage):
     CHECKED_ITEMS = By.XPATH, "//span[@class='rct-checkbox']//*[contains(@class, 'rct-icon-check')]/ancestor::label/span[@class='rct-title']"
     TITLE_ITEM = ".//ancestor::span[@class='rct-text']"
     OUTPUT_RESULT = By.CSS_SELECTOR, "span[class='text-success']"
-
 
     def open_check_box_page(self):
         self.open(CHECK_BOX_URL)
@@ -264,7 +262,6 @@ class WebTables(BasePage):
         if returned == "yes":
             return [first, last, age, email, salary, dept]
 
-
     def get_result_new_user(self, email):
         locator_user = By.XPATH, f"//*[text()='{email}']/parent::div/div"
         user_elements = self.find_elements(locator_user)
@@ -318,7 +315,6 @@ class Buttons(BasePage):
     DOUBLE_CLICK_MESSAGE = By.ID, "doubleClickMessage"
     RIGHT_CLICK_MESSAGE = By.ID, "rightClickMessage"
     DYNAMIC_CLICK_MESSAGE = By.ID, "dynamicClickMessage"
-
 
     def open_button_page(self):
         self.open(BUTTONS_URL)
@@ -405,4 +401,3 @@ class UploadAndDownload(BasePage):
         os.remove(file_path)
         result = self.get_text(self.UPLOAD_RESULT)
         return file_name, result
-

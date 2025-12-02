@@ -1,12 +1,12 @@
-import random
 import time
+import random
 
 import allure
 
-from curl import SORTABLE_URL, SELECTABLE_URL, RESIZABLE_URL, DROPPABLE_URL
+from curl import SORTABLE_URL, SELECTABLE_URL, RESIZABLE_URL, DROPPABLE_URL, DRAGGABLE_URL
 from generation import Generation
 from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators, ResizablePageLocators, \
-    DroppablePageLocators
+    DroppablePageLocators, DraggablePageLocators
 from pages.base_page import BasePage
 
 
@@ -182,3 +182,102 @@ class DroppablePage(BasePage):
     def get_position_not_revert_box(self):
         position = self.get_element_position(self.locators.NOT_REVERT_ABLE)
         return position
+
+
+class DraggablePage(BasePage):
+    locators = DraggablePageLocators
+
+    @allure.step("Открываем страницу Draggable")
+    def open_draggable_page(self):
+        self.open(DRAGGABLE_URL)
+
+    @allure.step("Переходим на вкладку Axis Restricted")
+    def click_axis_restricted_tab(self):
+        self.click(self.locators.AXIS_RESTRICTED_TAB)
+
+    @allure.step("Переходим на вкладку Container Restricted")
+    def click_container_restricted_tab(self):
+        self.click(self.locators.CONTAINER_RESTRICTED_TAB)
+
+    @allure.step("Перемещаем 'Drag Me' на случайные координаты")
+    def move_random_position_drag_me(self):
+        offset_x = random.randint(-100, 100)
+        offset_y = random.randint(-100, 100)
+        element = self.wait_for_element(self.locators.DRAG_ME)
+        self.action_drag_and_drop_by_offset(element, x, y)
+
+        return offset_x, offset_y
+
+    @allure.step("Получаем текущие координаты элемента 'Drag Me'")
+    def get_position_drag_me(self):
+        position = self.get_element_position(self.locators.DRAG_ME)
+        return position["x"], position["y"]
+
+    @allure.step("Получаем координату X элемента, ограниченного по оси X")
+    def get_position_only_x(self):
+        position = self.get_element_position(self.locators.ONLY_X)
+        return position["x"]
+
+    @allure.step("Сдвигаем элемент, ограниченный по X, на случайное значение")
+    def move_random_only_x_element(self):
+        element = self.wait_for_element(self.locators.ONLY_X)
+        offset_x = random.randint(-100, 100)
+        self.action_drag_and_drop_by_offset(element, offset_x, 40)
+        return offset_x
+
+    @allure.step("Получаем координату Y элемента, ограниченного по оси Y")
+    def get_position_only_y(self):
+        position = self.get_element_position(self.locators.ONLY_Y)
+        return position["y"]
+
+    @allure.step("Сдвигаем элемент, ограниченный по Y, на случайное значение")
+    def move_random_only_y_element(self):
+        element = self.wait_for_element(self.locators.ONLY_Y)
+        offset_y = random.randint(-100, 100)
+        self.action_drag_and_drop_by_offset(element, 0, offset_y)
+        return offset_y
+
+    @allure.step("Перемещаем элемент внутри ограниченного контейнера")
+    def move_random_position_restricted_box(self):
+        offset_x = -200
+        offset_y = -200
+        element = self.wait_for_element(self.locators.CONTAINED_DRAGGABLE)
+        self.action_drag_and_drop_by_offset(element, offset_x, offset_y)
+        return offset_x, offset_y
+
+    @allure.step("Получаем позиции ограниченного элемента")
+    def get_position_restricted_box(self):
+        element = self.wait_for_element(self.locators.CONTAINED_DRAGGABLE)
+        pos = element.location
+        size = element.size
+
+        return {
+            "left": pos["x"],
+            "top": pos["y"],
+            "right": pos["x"] + size["width"],
+            "bottom": pos["y"] + size["height"]
+        }
+
+    @allure.step("Получаем позиции контейнера")
+    def get_position_container(self):
+        container = self.wait_for_element(self.locators.BIG_CONTAINER)
+        pos = container.location
+        size = container.size
+
+        return {
+            "left": pos["x"],
+            "top": pos["y"],
+            "right": pos["x"] + size["width"],
+            "bottom": pos["y"] + size["height"]
+        }
+
+    @allure.step("Проверяем, что элемент находится внутри контейнера")
+    def is_inside_container(self):
+        box = self.get_position_restricted_box()
+        container = self.get_position_container()
+        return (
+            box["left"] >= container["left"] and
+            box["top"] >= container["top"] and
+            box["right"] <= container["right"] and
+            box["bottom"] <= container["bottom"]
+        )

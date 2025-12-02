@@ -13,7 +13,6 @@ class BrowserWindowsPage(BasePage):
     SAMPLE_PAGE = By.ID, "sampleHeading"
     NEW_WINDOW_MESSAGE_TEXT  = By.XPATH, "//body"
 
-
     @allure.step("Открыть страницу Browser Windows")
     def open_browser_windows_page(self):
         self.open(BROWSER_WINDOWS_URL)

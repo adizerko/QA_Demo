@@ -69,3 +69,17 @@ class DroppablePageLocators:
     NOT_REVERT_ABLE = By.ID, "notRevertable"
     DROPPABLE_REVERT = By.XPATH, "(//div[@id='droppable'])[3]"
     DROPPABLE_REVERT_TEXT = By.XPATH, "(//div[@id='droppable'])[3]/p"
+
+
+class DraggablePageLocators:
+    DRAG_ME = By.ID, "dragBox"
+
+    AXIS_RESTRICTED_TAB = By.ID, "draggableExample-tab-axisRestriction"
+    ONLY_X = By.ID, "restrictedX"
+    ONLY_Y = By.ID, "restrictedY"
+
+    CONTAINER_RESTRICTED_TAB = By.ID, "draggableExample-tab-containerRestriction"
+    BIG_CONTAINER = By.ID, "containmentWrapper"
+    CONTAINED_DRAGGABLE = By.XPATH, "//div[@id='containmentWrapper']/div"
+    SMALL_CONTAINER = By.CLASS_NAME, "draggable ui-widget-content m-3"
+    CONTAINED_DRAGGABLE_SPAN = By.XPATH, "//div[@class='draggable ui-widget-content m-3']/span"

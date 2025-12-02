@@ -1,5 +1,4 @@
 import random
-from calendar import month
 from typing import Any
 
 from faker import Faker

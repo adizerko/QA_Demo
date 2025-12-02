@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from locators.interactions_page_locators import SortablePageLocators, ResizablePageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 
+
 CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
                      "Documents", "Downloads", "Word File.doc",
                      "Excel File.doc", "WorkSpace", "React",
@@ -263,4 +264,3 @@ class DroppableData:
     expected_inner_text = "Inner droppable (not greedy)"
     outer_default_text = "Outer droppable"
     position_after_move = {'x': 1142, 'y': 385}
-

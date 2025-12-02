@@ -1,5 +1,8 @@
+# Базовый URL сайта DemoQA
 BASE_URL = "https://demoqa.com"
 MAIN_URL = f"{BASE_URL}/"
+
+# ========================= ELEMENTS =========================
 ELEMENTS_URL = f"{BASE_URL}/elements"
 TEXT_BOX_URL = f"{BASE_URL}/text-box"
 CHECK_BOX_URL = f"{BASE_URL}/checkbox"
@@ -8,14 +11,20 @@ WEB_TABLES_URL = f"{BASE_URL}/webtables"
 BUTTONS_URL = f"{BASE_URL}/buttons"
 LINKS_URL = f"{BASE_URL}/links"
 UPLOAD_AND_DOWNLOAD_URL = f"{BASE_URL}/upload-download"
+
+# ========================= FORMS =========================
 FORMS_URL = f"{BASE_URL}/forms"
 PRACTICE_FORM_URL = f"{BASE_URL}/automation-practice-form"
+
+# ========================= ALERTS & WINDOWS =========================
 ALERTS_WINDOWS_URL = f"{BASE_URL}/alertsWindows"
 BROWSER_WINDOWS_URL = f"{BASE_URL}/browser-windows"
 ALERT_URL = f"{BASE_URL}/alerts"
 FRAME_URL = f"{BASE_URL}/frames"
 NESTED_FRAME_URL = f"{BASE_URL}/nestedframes"
 MODAL_DIALOGS_URL = f"{BASE_URL}/modal-dialogs"
+
+# ========================= WIDGETS =========================
 WIDGETS_URL = f"{BASE_URL}/widjets"
 ACCORDIAN_URL = f"{BASE_URL}/accordian"
 AUTO_COMPLETE_URL = f"{BASE_URL}/auto-complete"
@@ -26,9 +35,14 @@ TABS_URL = f"{BASE_URL}/tabs"
 TOOL_TIPS_URL = f"{BASE_URL}/tool-tips"
 MENU_URL = f"{BASE_URL}/menu"
 SELECT_MENU_URL = f"{BASE_URL}/select-menu"
+
+# ========================= INTERACTIONS =========================
 INTERACTIONS_URL = f"{BASE_URL}/interaction"
 SORTABLE_URL = f"{BASE_URL}/sortable"
 SELECTABLE_URL = f"{BASE_URL}/selectable"
 RESIZABLE_URL = f"{BASE_URL}/resizable"
 DROPPABLE_URL = f"{BASE_URL}/droppable"
+DRAGGABLE_URL = f"{BASE_URL}/dragabble"
+
+# ========================= BOOKS =========================
 BOOKS_URL = f"{BASE_URL}/books"

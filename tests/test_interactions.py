@@ -1,18 +1,15 @@
-import time
-
 import allure
 import pytest
 
 from data import SortableData, ResizableData, DroppableData
 from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 
 
 @allure.suite("Interactions")
 class TestInteractions:
     @allure.feature("Sortable")
     class TestSortable:
-
         @allure.title("Сортировка списка — обратный порядок")
         def test_sortable_list(self, driver):
             sortable_page = SortablePage(driver)
@@ -76,7 +73,6 @@ class TestInteractions:
 
             assert actual_width == width, f"Ожидалось {width}px, получено {actual_width}px"
             assert actual_height == height, f"Ожидалось {height}px, получено {actual_height}px"
-
 
     @allure.feature("Droppable")
     class TestDroppable:
@@ -155,8 +151,58 @@ class TestInteractions:
             droppable_page.open_droppable_page()
             droppable_page.click_revert_draggable_tab()
             droppable_page.drop_not_revert()
+
             position_after_move = droppable_page.get_position_not_revert_box()
             actual_text_not_revert_box = droppable_page.droppable_revert_text()
 
             assert position_after_move == DroppableData.position_after_move
             assert actual_text_not_revert_box == DroppableData.success_text
+
+    @allure.feature("Draggable")
+    class TestDraggable:
+        @allure.title("Тест простого перетаскивания элемента Drag Me")
+        def test_draggable_simple(self, driver):
+            draggable_page = DraggablePage(driver)
+            draggable_page.open_draggable_page()
+
+            before_x, before_y = draggable_page.get_position_drag_me()
+            offset_x, offset_y = draggable_page.move_random_position_drag_me()
+            after_x, after_y = draggable_page.get_position_drag_me()
+
+            assert after_x == before_x + offset_x
+            assert after_y == before_y + offset_y
+
+        @allure.title("Тест ограничения по оси X")
+        def test_axis_restricted_only_x(self, driver):
+            draggable_page = DraggablePage(driver)
+            draggable_page.open_draggable_page()
+            draggable_page.click_axis_restricted_tab()
+
+            before_x = draggable_page.get_position_only_x()
+            offset_x = draggable_page.move_random_only_x_element()
+            after_x = draggable_page.get_position_only_x()
+
+            assert after_x == before_x + offset_x
+
+        @allure.title("Тест ограничения по оси Y")
+        def test_axis_restricted_only_y(self, driver):
+            draggable_page = DraggablePage(driver)
+            draggable_page.open_draggable_page()
+            draggable_page.click_axis_restricted_tab()
+
+            before_y = draggable_page.get_position_only_y()
+            offset_y = draggable_page.move_random_only_y_element()
+            after_y = draggable_page.get_position_only_y()
+
+            assert after_y == before_y + offset_y
+
+        @allure.title("Тест ограниченного контейнера: элемент не выходит за пределы")
+        def test_restricted_box_inside_container(self, driver):
+            draggable_page = DraggablePage(driver)
+            draggable_page.open_draggable_page()
+            draggable_page.click_container_restricted_tab()
+
+            draggable_page.move_random_position_restricted_box()
+            inside = draggable_page.is_inside_container()
+
+            assert inside
