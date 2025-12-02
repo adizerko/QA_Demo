@@ -2,6 +2,7 @@ import random
 from typing import Any
 
 from faker import Faker
+from selenium.webdriver.remote.webelement import WebElement
 
 from data import SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData, SelectMenuData, WebTablesData
 
@@ -63,7 +64,7 @@ class Generation:
         return random.choice(WebTablesData.DEPARTMENT)
 
     @staticmethod
-    def text_file():
+    def text_file() -> tuple[str, str]:
         file_name = f"file_upload{random.randint(1,100)}.txt"
         file_path = rf"C:\Users\adizerko\Downloads\{file_name}"
         text = faker.text(100)
@@ -73,7 +74,7 @@ class Generation:
         return file_name, file_path
 
     @staticmethod
-    def gender_forms():
+    def gender_forms() -> tuple[str, int]:
         num = random.randint(1,3)
         if num == 1:
             gender = "Male"
@@ -85,8 +86,8 @@ class Generation:
         return gender, num
 
     @staticmethod
-    def phone_number():
-        phone = random.randint(1000000000, 9999999999)
+    def phone_number() -> str:
+        phone = str(random.randint(1000000000, 9999999999))
         return phone
 
     @staticmethod
@@ -96,12 +97,12 @@ class Generation:
         return str(formatted_date)
 
     @staticmethod
-    def date():
+    def date() -> str:
         date = faker.date(pattern="%m/%d/%Y")
         return date
 
     @staticmethod
-    def subjects():
+    def subjects() -> list[str]:
         num = random.randint(1,14)
         subject_choice = random.sample(SUBJECTS_LIST, num)
         return subject_choice
@@ -113,12 +114,12 @@ class Generation:
         return state, city
 
     @staticmethod
-    def color():
+    def color() -> str:
         color = random.choice(AutoCompleteData.COLORS)
         return color
 
     @staticmethod
-    def date_and_time():
+    def date_and_time() -> str:
         month_random = faker.month_name()
         day_random = str(int(faker.day_of_month()))
         year_random = faker.year()
@@ -127,26 +128,26 @@ class Generation:
         return date_and_time
 
     @staticmethod
-    def color_for_old_menu():
+    def color_for_old_menu() -> str:
         color = random.choice(SelectMenuData.OLD_STYLE_SELECT_MENU_OPTIONS)
         return color
 
     @staticmethod
-    def colors_for_multiselect_drop_down():
+    def colors_for_multiselect_drop_down() -> list[str]:
         colors = SelectMenuData.MULTISELECT_DROP_DOWN_OPTIONS
         num = random.randint(1, len(colors))
         colors_choice = random.sample(colors, num)
         return colors_choice
 
     @staticmethod
-    def cars_for_standard_select_menu():
+    def cars_for_standard_select_menu() -> list[str]:
         cars = SelectMenuData.STANDARD_MULTI_SELECT_OPTIONS
         num = random.randint(1, len(cars))
         cars_choices = random.sample(cars, num)
         return cars_choices
 
     @staticmethod
-    def selecting_random_elements(elements):
+    def selecting_random_elements(elements: list[WebElement]) -> list[WebElement]:
         quantity = random.randint(1, len(elements))
         selected_elements  = random.sample(elements, quantity)
         return selected_elements

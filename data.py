@@ -1,6 +1,7 @@
 from faker.generator import random
 from selenium.webdriver.common.by import By
 
+from locators.alerts_frame_windows_page_locators import FramePageLocators
 from locators.interactions_page_locators import SortablePageLocators, LinksPageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 
@@ -64,10 +65,12 @@ STATE_AND_CITY = {
     "Rajasthan": ["Jaipur", "Jaiselmer"]
 }
 
-FRAME_LOCATOR = [
-    (By.ID, "frame1"),
-    (By.ID, "frame2")
-]
+
+class FrameData:
+    FRAME_LOCATOR = [
+        FramePageLocators.FRAME_1,
+        FramePageLocators.FRAME_2
+    ]
 
 class ModalDialogsData:
     SMALL_MODAL_EXPECTED_TEXT = "This is a small modal. It has very less content"
