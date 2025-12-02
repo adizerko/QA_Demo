@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 
 from locators.alerts_frame_windows_page_locators import FramePageLocators
 from locators.interactions_page_locators import SortablePageLocators, LinksPageLocators
-from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
-
+from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, AutoCompletePageLocators, \
+    AccordianPageLocators
 
 
 class CheckBoxData:
@@ -87,9 +87,9 @@ class ModalDialogsData:
 
 class AccordianData:
     SECTION_TITLES = [
-        ((By.ID, "section1Heading"), "What is Lorem Ipsum?"),
-        ((By.ID, "section2Heading"), "Where does it come from?"),
-        ((By.ID, "section3Heading"), "Why do we use it?")
+        (AccordianPageLocators.SECTION_FIRST, "What is Lorem Ipsum?"),
+        (AccordianPageLocators.SECTION_SECOND, "Where does it come from?"),
+        (AccordianPageLocators.SECTION_THIRD, "Why do we use it?")
     ]
 
     SECTION = [
@@ -173,8 +173,8 @@ class AutoCompleteData:
     }
 
     INPUT_FIELDS = [
-        (By.ID, "autoCompleteMultipleInput"),
-        (By.ID, "autoCompleteSingleInput")
+        AutoCompletePageLocators.INPUT_MULTIPLE,
+        AutoCompletePageLocators.INPUT_SINGLE,
     ]
 
 class DatePickerData:
