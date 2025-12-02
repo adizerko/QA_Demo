@@ -3,7 +3,7 @@ from typing import Any
 
 from faker import Faker
 
-from data import DEPARTMENT, SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData, SelectMenuData
+from data import SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData, SelectMenuData, WebTablesData
 
 faker = Faker()
 
@@ -30,7 +30,7 @@ class Generation:
         return text
 
     @staticmethod
-    def text_box_input():
+    def text_box_input() -> tuple[str, str,  str, str]:
         user_name: str = Generation.user_name()
         email: str = Generation.email()
         current_address: str = Generation.address()
@@ -60,7 +60,7 @@ class Generation:
 
     @staticmethod
     def department() -> str:
-        return random.choice(DEPARTMENT)
+        return random.choice(WebTablesData.DEPARTMENT)
 
     @staticmethod
     def text_file():

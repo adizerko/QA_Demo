@@ -2,7 +2,7 @@ from typing import Tuple
 
 import allure
 from selenium.webdriver.common.alert import Alert
-from selenium.webdriver.ie.webdriver import WebDriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -21,8 +21,7 @@ class BasePage:
     @allure.step("Ждём видимость элемента {locator}")
     def wait_for_element(self, locator: Tuple[str, str], timeout: int = 10) -> WebElement:
         return WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located(locator),
-        )
+            EC.visibility_of_element_located(locator))
 
     @allure.step("Ждём появления alert")
     def wait_for_alert(self, timeout: int =10) -> Alert:

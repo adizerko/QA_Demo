@@ -1,53 +1,55 @@
 from faker.generator import random
 from selenium.webdriver.common.by import By
 
-from locators.interactions_page_locators import SortablePageLocators, ResizablePageLocators
+from locators.interactions_page_locators import SortablePageLocators, LinksPageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators
 
 
-CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
-                     "Documents", "Downloads", "Word File.doc",
-                     "Excel File.doc", "WorkSpace", "React",
-                     "Angular", "Veu", "Office", "Public", "Private",
-                     "Classified", "General",]
 
-RADIO_BUTTON_ELEMENTS = ["yesRadio","impressiveRadio",]
+class CheckBoxData:
 
-DEPARTMENT = ["Insurance", "Compliance", "Legal"]
+    CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
+                         "Documents", "Downloads", "Word File.doc",
+                         "Excel File.doc", "WorkSpace", "React",
+                         "Angular", "Veu", "Office", "Public", "Private",
+                         "Classified", "General",]
 
-LOCATORS_SORT_BY_COLUMN = [
-    ("//div[text()='First Name']", "Alden", 1),
-    ("//div[text()='Last Name']", "Cantrell", 2),
-    ("//div[text()='Age']", "29", 3),
-    ("//div[text()='Email']", "alden@example.com", 4),
-    ("//div[text()='Salary']", "2000", 5),
-    ("//div[text()='Department']", "Compliance", 6),
-]
 
-SUCCESS_DOUBLE_CLICK_MESSAGE = "You have done a double click"
-SUCCESS_RIGHT_CLICK_MESSAGE = "You have done a right click"
-SUCCESS_CLICK_MESSAGE = "You have done a dynamic click"
+class WebTablesData:
+    DEPARTMENT = ["Insurance", "Compliance", "Legal"]
+    SEARCH_TEST_DATA = ["Alden", "Cantrell", "45", "alden@example.com", "1200", "Compliance",]
+    TABLE_ROWS_OPTIONS = [5, 10, 20, 25, 50, 100]
 
-LOCATORS_LINKS_PAGE = [
-    (By.ID, "simpleLink"),
-    (By.ID, "dynamicLink")
-]
+    LOCATORS_SORT_BY_COLUMN = [
+        ("//div[text()='First Name']", "Alden", 1),
+        ("//div[text()='Last Name']", "Cantrell", 2),
+        ("//div[text()='Age']", "29", 3),
+        ("//div[text()='Email']", "alden@example.com", 4),
+        ("//div[text()='Salary']", "2000", 5),
+        ("//div[text()='Department']", "Compliance", 6),
+    ]
 
-LOCATORS_LINKS_API_PAGE = [
-    ("created", "201", "Created"),
-    ("no-content", "204", "No Content"),
-    ("moved", "301", "Moved Permanently"),
-    ("bad-request", "400", "Bad Request"),
-    ("unauthorized", "401", "Unauthorized"),
-    ("forbidden", "403", "Forbidden"),
-    ("invalid-url", "404", "Not Found")
-]
+class ButtonsData:
+    SUCCESS_DOUBLE_CLICK_MESSAGE = "You have done a double click"
+    SUCCESS_RIGHT_CLICK_MESSAGE = "You have done a right click"
+    SUCCESS_CLICK_MESSAGE = "You have done a dynamic click"
 
-LOCATOR_GENDERS = [
-    (By.ID, "gender-radio-1"),
-    (By.ID, "gender-radio-2"),
-    (By.ID, "gender-radio-3"),
-]
+
+class LinksData:
+    LOCATORS_LINKS_PAGE = [
+        LinksPageLocators.HOME_LINK,
+        LinksPageLocators.DYNAMIC_LINK
+    ]
+
+    LOCATORS_LINKS_API_PAGE = [
+        ("created", "201", "Created"),
+        ("no-content", "204", "No Content"),
+        ("moved", "301", "Moved Permanently"),
+        ("bad-request", "400", "Bad Request"),
+        ("unauthorized", "401", "Unauthorized"),
+        ("forbidden", "403", "Forbidden"),
+        ("invalid-url", "404", "Not Found")
+    ]
 
 SUBJECTS_LIST = [
     "Hindi", "English", "Maths", "Physics", "Chemistry",
