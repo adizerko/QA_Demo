@@ -7,12 +7,12 @@ from selenium.webdriver.common.by import By
 
 from curl import PRACTICE_FORM_URL
 from generation import Generation
-from locators.interactions_page_locators import FormsPageLocators
+from locators.forms_page_locators import PracticeFormPageLocators
 from pages.base_page import BasePage
 
 
 class FormsPage(BasePage):
-    locators = FormsPageLocators
+    locators = PracticeFormPageLocators
 
     @allure.step("Открывает страницу формы")
     def open_forms_page(self) -> None:

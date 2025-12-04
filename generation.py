@@ -4,7 +4,8 @@ from typing import Any
 from faker import Faker
 from selenium.webdriver.remote.webelement import WebElement
 
-from data import SUBJECTS_LIST, STATE_AND_CITY, AutoCompleteData, SelectMenuData, WebTablesData
+from data import AutoCompleteData, SelectMenuData, WebTablesData, PracticeFormData
+
 
 faker = Faker()
 
@@ -104,13 +105,13 @@ class Generation:
     @staticmethod
     def subjects() -> list[str]:
         num = random.randint(1,14)
-        subject_choice = random.sample(SUBJECTS_LIST, num)
+        subject_choice = random.sample(PracticeFormData.SUBJECTS_LIST, num)
         return subject_choice
 
     @staticmethod
     def state_and_city() -> tuple[Any, Any]:
-        state = random.choice(list(STATE_AND_CITY.keys()))
-        city = random.choice(STATE_AND_CITY[state])
+        state = random.choice(list(PracticeFormData.STATE_AND_CITY.keys()))
+        city = random.choice(PracticeFormData.STATE_AND_CITY[state])
         return state, city
 
     @staticmethod

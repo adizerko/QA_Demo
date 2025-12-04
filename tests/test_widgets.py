@@ -49,8 +49,10 @@ class TestWidgets:
 
             assert text_first_section == AccordianData.FIRST_SECTION_TEXT_EXPECTED,\
                 "Текст первой секции неверный"
+
             assert text_second_section == AccordianData.SECOND_SECTION_TEXT_EXPECTED, \
                 "Текст второй секции неверный"
+
             assert text_third_section == AccordianData.THIRD_SECTION_TEXT_EXPECTED,\
                 "Текст третьей секции неверный"
 
@@ -110,6 +112,7 @@ class TestWidgets:
 
     @allure.feature("Date Picker")
     class TestDatePicker:
+
         @allure.title("Выбор случайной даты через ручной ввод")
         def test_select_random_date_manual_input_valid_date(self, driver: WebDriver) -> None:
             date_picker_page = DatePickerPage(driver)
@@ -160,11 +163,13 @@ class TestWidgets:
             slider_page = SliderPage(driver)
             slider_page.open_slider_page()
             value_before, value_after = slider_page.change_slider_value()
+
             assert value_before != value_after, \
                 f"Значение слайдера до и после перемещения совпадает: {value_before}"
 
     @allure.feature("Progress Bar")
     class TestProgressBar:
+
         @allure.title("Прогресс-бар запускается после нажатия Start")
         def test_progress_bar_is_running_after_start_click(self, driver: WebDriver) -> None:
             progress_bar_page = ProgressBarPage(driver)
@@ -191,11 +196,13 @@ class TestWidgets:
 
             assert value_before_reset != value_after_reset,\
                 "Прогресс-бар не изменился после сброса"
+
             assert value_after_reset == '0',\
                 "Прогресс-бар после сброса не равен 0"
 
     @allure.feature("Tabs")
     class TestTabs:
+
         @allure.title("Проверка отображения корректного контента при переключении вкладок")
         @pytest.mark.parametrize("tab, text, expected_text",
                                  TabsData.TABS_TEST_DATA,
@@ -234,6 +241,7 @@ class TestWidgets:
 
     @allure.feature("Tool Tip")
     class TestToolTips:
+
         @pytest.mark.parametrize(
             "hover_target, expected_text",
             ToolTipsData.TOOLTIPS_HOVER,
@@ -255,6 +263,7 @@ class TestWidgets:
 
     @allure.feature("Menu")
     class TestMenu:
+
         @allure.title("Проверка текста всех пунктов меню при наведении курсора")
         def test_menu_items(self, driver: WebDriver) -> None:
             menu_page = MenuPage(driver)

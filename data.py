@@ -1,8 +1,8 @@
 from faker.generator import random
-from selenium.webdriver.common.by import By
 
 from locators.alerts_frame_windows_page_locators import FramePageLocators
-from locators.interactions_page_locators import SortablePageLocators, LinksPageLocators
+from locators.elements_page_locators import LinksPageLocators
+from locators.interactions_page_locators import SortablePageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, AutoCompletePageLocators, \
     AccordianPageLocators
 
@@ -14,6 +14,12 @@ class CheckBoxData:
                          "Excel File.doc", "WorkSpace", "React",
                          "Angular", "Veu", "Office", "Public", "Private",
                          "Classified", "General",]
+
+
+class RadioButtonData:
+    RADIO_YES = "Yes"
+    RADIO_IMPRESSIVE = "Impressive"
+    RADIO_NO = "No"
 
 
 class WebTablesData:
@@ -29,6 +35,7 @@ class WebTablesData:
         ("//div[text()='Salary']", "2000", 5),
         ("//div[text()='Department']", "Compliance", 6),
     ]
+
 
 class ButtonsData:
     SUCCESS_DOUBLE_CLICK_MESSAGE = "You have done a double click"
@@ -52,18 +59,33 @@ class LinksData:
         ("invalid-url", "404", "Not Found")
     ]
 
-SUBJECTS_LIST = [
-    "Hindi", "English", "Maths", "Physics", "Chemistry",
-    "Biology", "Computer Science", "Commerce", "Accounting",
-    "Economics", "Arts", "Social Studies", "History", "Civics",
-]
 
-STATE_AND_CITY = {
-    "NCR": ["Delhi", "Gurgaon", "Noida"],
-    "Uttar Pradesh": ["Agra", "Lucknow", "Merrut"],
-    "Haryana": ["Karnal", "Panipat"],
-    "Rajasthan": ["Jaipur", "Jaiselmer"]
-}
+class PracticeFormData:
+    SUBJECTS_LIST = [
+        "Hindi", "English", "Maths", "Physics", "Chemistry",
+        "Biology", "Computer Science", "Commerce", "Accounting",
+        "Economics", "Arts", "Social Studies", "History", "Civics",
+    ]
+
+    STATE_AND_CITY = {
+        "NCR": ["Delhi", "Gurgaon", "Noida"],
+        "Uttar Pradesh": ["Agra", "Lucknow", "Merrut"],
+        "Haryana": ["Karnal", "Panipat"],
+        "Rajasthan": ["Jaipur", "Jaiselmer"]
+    }
+
+
+class BrowserWindowsData:
+    SAMPLE_PAGE_URL = "https://demoqa.com/sample"
+    SAMPLE_PAGE_TITLE_TEXT = "This is a sample page"
+    YOU_CLICKED_A_BUTTON_TEXT = "You clicked a button"
+    ALERT_APPEARED_AFTER_5_SEC_TEXT = "This alert appeared after 5 seconds"
+    CONFIRM_ALERT_TEXT = "Do you confirm action?"
+    CONFIRM_ALERT_OK_RESULT = "You selected Ok"
+    CONFIRM_ALERT_CANCEL_RESULT = "You selected Cancel"
+    PROMPT_ALERT_MESSAGE = "Please enter your name"
+    PARENT_FRAME_TEXT = "Parent frame"
+    CHILD_FRAME_TEXT = "Child Iframe"
 
 
 class FrameData:
@@ -71,6 +93,7 @@ class FrameData:
         FramePageLocators.FRAME_1,
         FramePageLocators.FRAME_2
     ]
+
 
 class ModalDialogsData:
     SMALL_MODAL_EXPECTED_TEXT = "This is a small modal. It has very less content"
@@ -85,6 +108,7 @@ class ModalDialogsData:
     "including versions of Lorem Ipsum."
 )
 
+
 class AccordianData:
     SECTION_TITLES = [
         (AccordianPageLocators.SECTION_FIRST, "What is Lorem Ipsum?"),
@@ -93,9 +117,9 @@ class AccordianData:
     ]
 
     SECTION = [
-        ((By.XPATH, "//div[@id='section1Heading']//following-sibling::div"), (By.ID, "section1Heading")),
-        ((By.XPATH, "//div[@id='section2Heading']//following-sibling::div"), (By.ID, "section2Heading")),
-        ((By.XPATH, "//div[@id='section3Heading']//following-sibling::div"), (By.ID, "section3Heading"))
+        (AccordianPageLocators.SECTION_FIRST_ATTRIBUTE, AccordianPageLocators.SECTION_FIRST),
+        (AccordianPageLocators.SECTION_SECOND_ATTRIBUTE, AccordianPageLocators.SECTION_SECOND),
+        (AccordianPageLocators.SECTION_THIRD_ATTRIBUTE, AccordianPageLocators.SECTION_THIRD)
     ]
 
 
@@ -145,6 +169,7 @@ class AccordianData:
             " (injected humour and the like)."
     )
 
+
 class AutoCompleteData:
 
     COLORS = ["Red",
@@ -176,6 +201,8 @@ class AutoCompleteData:
         AutoCompletePageLocators.INPUT_MULTIPLE,
         AutoCompletePageLocators.INPUT_SINGLE,
     ]
+
+
 
 class DatePickerData:
     pass
@@ -215,6 +242,7 @@ class MenuData:
                  "Sub Item", "SUB SUB LIST »", "Sub Sub Item 1",
                  "Sub Sub Item 2", "Main Item 3"]
 
+
 class SelectMenuData:
     OLD_STYLE_SELECT_MENU_OPTIONS = [
         "Red","Blue","Green","Yellow","Purple","Black","White","Voilet","Indigo","Magenta","Aqua"
@@ -222,6 +250,7 @@ class SelectMenuData:
 
     MULTISELECT_DROP_DOWN_OPTIONS = ["Green", "Blue", "Black", "Red",]
     STANDARD_MULTI_SELECT_OPTIONS = ["Volvo", "Saab", "Opel", "Audi"]
+
 
 class SortableData:
     locators = SortablePageLocators

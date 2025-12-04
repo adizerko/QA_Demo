@@ -230,7 +230,7 @@ class DatePickerPage(BasePage):
         month = self.select_random_mont()
         year = self.select_random_year()
         day = self.select_random_day()
-        time = Helper.formated_time(self.select_random_time())  # допустим, возвращает "23:30"
+        time = Helper.formated_time(self.select_random_time())
         date_and_time = f"{month} {day}, {year} {time}"
         return date_and_time
 

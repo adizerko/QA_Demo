@@ -4,15 +4,17 @@ import allure
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from data import WebTablesData, ButtonsData, LinksData
+from data import WebTablesData, ButtonsData, LinksData, RadioButtonData
 from generation import Generation
 from pages.elements_page import TextBox, CheckBox, RadioButton, WebTables, Buttons, Links, UploadAndDownload
 
 
 @allure.suite("Elements")
 class TestElements:
+
     @allure.feature("Text Box")
     class TestTextBox:
+
         @allure.title("Проверка успешного заполнения Text Box")
         def test_text_box_success(self, driver: WebDriver) -> None:
             text_box_page = TextBox(driver)
@@ -30,15 +32,19 @@ class TestElements:
 
             assert text_box_page.is_user_name_correct(user_name),\
                 "Имя не совпадает"
+
             assert text_box_page.is_user_email_correct(user_email),\
                 "Email не совпадает"
+
             assert text_box_page.is_current_address_correct(current_address),\
                 "Текущий адрес не совпадает"
+
             assert text_box_page.is_permanent_address_correct(permanent_address),\
                 "Постоянный адрес не совпадает"
 
     @allure.feature("Check Box")
     class TestCheckBox:
+
         @allure.title("Тест выбора чекбоксов и проверки результатов")
         def test_check_box(self, driver: WebDriver):
             check_box_page = CheckBox(driver)
@@ -49,7 +55,8 @@ class TestElements:
             checked_elements = check_box_page.get_checked_checkbox_elements()
             result_checked_elements = check_box_page.get_result_checked_checkbox_elements()
 
-            assert checked_elements == result_checked_elements
+            assert checked_elements == result_checked_elements,\
+                "Результаты чекбоксов не совпадают"
 
     @allure.feature("Radio Button")
     class TestRadioButton:
@@ -61,7 +68,8 @@ class TestElements:
             radio_button_page.select_radio_button_yes()
             radio_result = radio_button_page.get_radio_result()
 
-            assert radio_result == 'Yes'
+            assert radio_result == RadioButtonData.RADIO_YES,\
+                "Выбрана неверная радио-кнопка"
 
         @allure.title("Проверка выбора радио-кнопки 'Impressive'")
         def test_radio_button_selected_impressive(self, driver: WebDriver):
@@ -70,7 +78,8 @@ class TestElements:
             radio_button_page.select_radio_button_impressive()
             radio_result = radio_button_page.get_radio_result()
 
-            assert radio_result == 'Impressive'
+            assert radio_result == RadioButtonData.RADIO_IMPRESSIVE,\
+                "Выбрана неверная радио-кнопка"
 
         @allure.title("Проверка выбора радио-кнопки 'No'")
         def test_radio_button_selected_no(self, driver: WebDriver):
@@ -79,7 +88,8 @@ class TestElements:
             radio_button_page.select_radio_button_no()
             radio_result = radio_button_page.get_radio_result()
 
-            assert radio_result == 'No'
+            assert radio_result == RadioButtonData.RADIO_NO,\
+                "Выбрана неверная радио-кнопка"
 
     @allure.feature("Web Tables")
     class TestWebTables:
@@ -132,7 +142,7 @@ class TestElements:
             web_tables_page.select_number_of_rows(quantity)
             displayed_rows = web_tables_page.get_quantity_fields()
 
-            assert displayed_rows == quantity,\
+            assert displayed_rows == quantity, \
                 f"Отображено {displayed_rows} строк, ожидалось {quantity}"
 
         @allure.title("Поиск пользователя по значению {search_element}")
@@ -142,7 +152,7 @@ class TestElements:
             web_tables_page.open_web_tables_page()
             web_tables_page.set_search(search_element)
 
-            assert web_tables_page.is_user_found(search_element),\
+            assert web_tables_page.is_user_found(search_element), \
                 f"Пользователь {search_element} не найден"
 
         @allure.title("Сортировка таблицы по колонке {click_column}")
@@ -159,7 +169,7 @@ class TestElements:
             web_tables_page.click_column_to_sort(click_column)
             sort_result_text = web_tables_page.get_sorted_results(lap)
 
-            assert sort_result_text == expected_sorted_column,\
+            assert sort_result_text == expected_sorted_column, \
                 f"Сортировка по колонке {click_column} некорректна"
 
     @allure.feature("Buttons")
@@ -171,7 +181,7 @@ class TestElements:
             buttons_page.open_button_page()
             text_result: str = buttons_page.double_click_button()
 
-            assert text_result == ButtonsData.SUCCESS_DOUBLE_CLICK_MESSAGE,\
+            assert text_result == ButtonsData.SUCCESS_DOUBLE_CLICK_MESSAGE, \
                 "Неверное сообщение после двойного клика"
 
         @allure.title("Проверка клика правой кнопкой по кнопке")
@@ -180,7 +190,7 @@ class TestElements:
             buttons_page.open_button_page()
             text_result: str = buttons_page.right_click_button()
 
-            assert text_result == ButtonsData.SUCCESS_RIGHT_CLICK_MESSAGE,\
+            assert text_result == ButtonsData.SUCCESS_RIGHT_CLICK_MESSAGE, \
                  "Неверное сообщение после клика правой кнопкой"
 
         @allure.title("Проверка обычного клика по кнопке")
@@ -189,7 +199,7 @@ class TestElements:
             buttons_page.open_button_page()
             text_result: str = buttons_page.click_me_button()
 
-            assert text_result == ButtonsData.SUCCESS_CLICK_MESSAGE,\
+            assert text_result == ButtonsData.SUCCESS_CLICK_MESSAGE, \
                 "Неверное сообщение после обычного клика"
 
     class TestLinks:
@@ -201,7 +211,7 @@ class TestElements:
             links_page.open_link_page()
             current_url, href_link = links_page.click_on_the_link(locator)
 
-            assert current_url == href_link,\
+            assert current_url == href_link, \
                 f"Ссылка не открылась корректно: ожидалось {href_link}, получено {current_url}"
 
         @allure.title("Проверка API вызова по ссылкам")
@@ -218,8 +228,11 @@ class TestElements:
             links_page.open_link_page()
             response_status_code, response_text = links_page.click_on_the_link_api_call(locator)
 
-            assert status_code_expected == response_status_code, "Неверный статус код"
-            assert response_text_expected == response_text, "Неверный текст ответа"
+            assert status_code_expected == response_status_code, \
+                "Неверный статус код"
+
+            assert response_text_expected == response_text, \
+                "Неверный текст ответа"
 
     @allure.feature("Upload and Download Page")
     class TestUploadAndDownload:
@@ -229,7 +242,8 @@ class TestElements:
             upload_and_download_page = UploadAndDownload(driver)
             upload_and_download_page.open_upload_and_download_page()
 
-            assert upload_and_download_page.click_download_button(), "Файл не был загружен"
+            assert upload_and_download_page.click_download_button(),\
+                "Файл не был загружен"
 
         @allure.title("Загрузка файла")
         def test_upload_file(self, driver: WebDriver) -> None:

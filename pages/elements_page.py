@@ -7,12 +7,13 @@ import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from curl import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, WEB_TABLES_URL, BUTTONS_URL, LINKS_URL, \
-    UPLOAD_AND_DOWNLOAD_URL
+from curl import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, \
+    WEB_TABLES_URL, BUTTONS_URL, LINKS_URL, UPLOAD_AND_DOWNLOAD_URL
 from data import CheckBoxData
 from generation import Generation
-from locators.interactions_page_locators import TextBoxPageLocators, CheckBoxLocators, RadioButtonLocators, \
-    WebTablesLocators, ButtonsPageLocators, LinksPageLocators, UploadAndDownloadLocators
+from locators.elements_page_locators import TextBoxPageLocators, \
+    CheckBoxLocators, RadioButtonLocators, WebTablesLocators, ButtonsPageLocators, \
+    LinksPageLocators, UploadAndDownloadLocators
 from pages.base_page import BasePage
 
 
