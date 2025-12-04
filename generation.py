@@ -1,10 +1,13 @@
+import os
 import random
 from typing import Any
 
 from faker import Faker
 from selenium.webdriver.remote.webelement import WebElement
 
-from data import AutoCompleteData, SelectMenuData, WebTablesData, PracticeFormData
+from data.elements_data import WebTablesData, UploadAndDownloadData
+from data.forms_data import PracticeFormData
+from data.widgets_data import AutoCompleteData, SelectMenuData
 
 
 faker = Faker()
@@ -66,9 +69,12 @@ class Generation:
 
     @staticmethod
     def text_file() -> tuple[str, str]:
+        os.makedirs(UploadAndDownloadData.DOWNLOADS_DIR, exist_ok=True)
+
         file_name = f"file_upload{random.randint(1,100)}.txt"
-        file_path = rf"C:\Users\adizerko\Downloads\{file_name}"
+        file_path = os.path.join(UploadAndDownloadData.DOWNLOADS_DIR, file_name)
         text = faker.text(100)
+
         with open(file_path, "w") as f:
             f.write(text)
 

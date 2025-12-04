@@ -1,112 +1,6 @@
-from faker.generator import random
-
-from locators.alerts_frame_windows_page_locators import FramePageLocators
-from locators.elements_page_locators import LinksPageLocators
-from locators.interactions_page_locators import SortablePageLocators
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, AutoCompletePageLocators, \
     AccordianPageLocators
 
-
-class CheckBoxData:
-
-    CHECKBOX_ELEMENTS = ["Desktop", "Notes", "Commands",
-                         "Documents", "Downloads", "Word File.doc",
-                         "Excel File.doc", "WorkSpace", "React",
-                         "Angular", "Veu", "Office", "Public", "Private",
-                         "Classified", "General",]
-
-
-class RadioButtonData:
-    RADIO_YES = "Yes"
-    RADIO_IMPRESSIVE = "Impressive"
-    RADIO_NO = "No"
-
-
-class WebTablesData:
-    DEPARTMENT = ["Insurance", "Compliance", "Legal"]
-    SEARCH_TEST_DATA = ["Alden", "Cantrell", "45", "alden@example.com", "1200", "Compliance",]
-    TABLE_ROWS_OPTIONS = [5, 10, 20, 25, 50, 100]
-
-    LOCATORS_SORT_BY_COLUMN = [
-        ("//div[text()='First Name']", "Alden", 1),
-        ("//div[text()='Last Name']", "Cantrell", 2),
-        ("//div[text()='Age']", "29", 3),
-        ("//div[text()='Email']", "alden@example.com", 4),
-        ("//div[text()='Salary']", "2000", 5),
-        ("//div[text()='Department']", "Compliance", 6),
-    ]
-
-
-class ButtonsData:
-    SUCCESS_DOUBLE_CLICK_MESSAGE = "You have done a double click"
-    SUCCESS_RIGHT_CLICK_MESSAGE = "You have done a right click"
-    SUCCESS_CLICK_MESSAGE = "You have done a dynamic click"
-
-
-class LinksData:
-    LOCATORS_LINKS_PAGE = [
-        LinksPageLocators.HOME_LINK,
-        LinksPageLocators.DYNAMIC_LINK
-    ]
-
-    LOCATORS_LINKS_API_PAGE = [
-        ("created", "201", "Created"),
-        ("no-content", "204", "No Content"),
-        ("moved", "301", "Moved Permanently"),
-        ("bad-request", "400", "Bad Request"),
-        ("unauthorized", "401", "Unauthorized"),
-        ("forbidden", "403", "Forbidden"),
-        ("invalid-url", "404", "Not Found")
-    ]
-
-
-class PracticeFormData:
-    SUBJECTS_LIST = [
-        "Hindi", "English", "Maths", "Physics", "Chemistry",
-        "Biology", "Computer Science", "Commerce", "Accounting",
-        "Economics", "Arts", "Social Studies", "History", "Civics",
-    ]
-
-    STATE_AND_CITY = {
-        "NCR": ["Delhi", "Gurgaon", "Noida"],
-        "Uttar Pradesh": ["Agra", "Lucknow", "Merrut"],
-        "Haryana": ["Karnal", "Panipat"],
-        "Rajasthan": ["Jaipur", "Jaiselmer"]
-    }
-
-
-class BrowserWindowsData:
-    SAMPLE_PAGE_URL = "https://demoqa.com/sample"
-    SAMPLE_PAGE_TITLE_TEXT = "This is a sample page"
-    YOU_CLICKED_A_BUTTON_TEXT = "You clicked a button"
-    ALERT_APPEARED_AFTER_5_SEC_TEXT = "This alert appeared after 5 seconds"
-    CONFIRM_ALERT_TEXT = "Do you confirm action?"
-    CONFIRM_ALERT_OK_RESULT = "You selected Ok"
-    CONFIRM_ALERT_CANCEL_RESULT = "You selected Cancel"
-    PROMPT_ALERT_MESSAGE = "Please enter your name"
-    PARENT_FRAME_TEXT = "Parent frame"
-    CHILD_FRAME_TEXT = "Child Iframe"
-
-
-class FrameData:
-    FRAME_LOCATOR = [
-        FramePageLocators.FRAME_1,
-        FramePageLocators.FRAME_2
-    ]
-
-
-class ModalDialogsData:
-    SMALL_MODAL_EXPECTED_TEXT = "This is a small modal. It has very less content"
-
-    LARGE_MODAL_EXPECTED_TEXT = (
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-    "when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
-    "It has survived not only five centuries, but also the leap into electronic typesetting, "
-    "remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets "
-    "containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker "
-    "including versions of Lorem Ipsum."
-)
 
 
 class AccordianData:
@@ -153,6 +47,7 @@ class AccordianData:
          ' The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..",'
          ' comes from a line in section 1.10.32.'
     )
+
     THIRD_SECTION_TEXT_EXPECTED = (
             "It is a long established fact that a reader will"
             " be distracted by the readable content of a page"
@@ -171,7 +66,6 @@ class AccordianData:
 
 
 class AutoCompleteData:
-
     COLORS = ["Red",
               "Blue",
               "Green",
@@ -237,6 +131,7 @@ class ToolTipsData:
         (locator.SECTION_LINK, "You hovered over the 1.10.32")
     ]
 
+
 class MenuData:
     MENU_TEXT = ["Main Item 1", "Main Item 2", "Sub Item",
                  "Sub Item", "SUB SUB LIST »", "Sub Sub Item 1",
@@ -250,51 +145,3 @@ class SelectMenuData:
 
     MULTISELECT_DROP_DOWN_OPTIONS = ["Green", "Blue", "Black", "Red",]
     STANDARD_MULTI_SELECT_OPTIONS = ["Volvo", "Saab", "Opel", "Audi"]
-
-
-class SortableData:
-    locators = SortablePageLocators
-
-    ITEMS_LIST_TO_REVERSE = [
-        locators.SIX_LIST,
-        locators.FIVE_LIST,
-        locators.FOUR_LIST,
-        locators.THREE_LIST,
-        locators.TWO_LIST,
-    ]
-
-    ITEMS_GRID_TO_REVERSE = [
-        locators.NINE_GRID,
-        locators.EIGHT_GRID,
-        locators.SEVEN_GRID,
-        locators.SIX_GRID,
-        locators.FIVE_GRID,
-        locators.FOUR_GRID,
-        locators.THREE_GRID,
-        locators.TWO_GRID
-
-    ]
-
-    expected_sort_by_list = ["Six", "Five", "Four", "Three", "Two", "One"]
-    expected_sort_by_grid = ["Nine","Eight","Seven","Six", "Five", "Four",
-                             "Three", "Two", "One"]
-    SORT = [
-        (locators.LIST, locators.TAB_LISTS, ITEMS_LIST_TO_REVERSE, locators.ONE_LIST, expected_sort_by_list),
-        (locators.GRID, locators.TAB_GRIDS, ITEMS_GRID_TO_REVERSE, locators.ONE_GRID, expected_sort_by_grid)
-    ]
-
-
-class ResizableData:
-    BOX_SIZES = [
-        (150, 150),
-        (500, 300),
-        (random.randint(150,500), random.randint(150,300))
-    ]
-
-
-class DroppableData:
-    success_text = "Dropped!"
-    expected_not_drop_text = "Drop here"
-    expected_inner_text = "Inner droppable (not greedy)"
-    outer_default_text = "Outer droppable"
-    position_after_move = {'x': 1142, 'y': 385}

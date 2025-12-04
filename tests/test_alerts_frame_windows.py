@@ -2,8 +2,7 @@ import allure
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-
-from data import ModalDialogsData, FrameData, BrowserWindowsData
+from data.alerts_frame_windows_data import BrowserWindowsData, ModalDialogsData, FrameData
 from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, \
     FramePage, NestedFramesPage, ModalDialogsPage
 

@@ -2,7 +2,7 @@ import allure
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from data import SortableData, ResizableData, DroppableData
+from data.interactions_data import SortableData, ResizableData, DroppableData
 from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators
 from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 

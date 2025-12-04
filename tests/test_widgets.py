@@ -2,7 +2,7 @@ import allure
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from data import AccordianData, AutoCompleteData, TabsData, ToolTipsData, MenuData
+from data.widgets_data import AccordianData, AutoCompleteData, TabsData, ToolTipsData, MenuData
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, \
     SliderPage, ProgressBarPage, TabsPage, ToolTipsPage, MenuPage, SelectMenuPage
 

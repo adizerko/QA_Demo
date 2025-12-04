@@ -4,7 +4,7 @@ import allure
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from data import WebTablesData, ButtonsData, LinksData, RadioButtonData
+from data.elements_data import RadioButtonData, ButtonsData, WebTablesData, LinksData
 from generation import Generation
 from pages.elements_page import TextBox, CheckBox, RadioButton, WebTables, Buttons, Links, UploadAndDownload
 

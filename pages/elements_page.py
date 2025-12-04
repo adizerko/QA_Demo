@@ -9,7 +9,8 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from curl import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, \
     WEB_TABLES_URL, BUTTONS_URL, LINKS_URL, UPLOAD_AND_DOWNLOAD_URL
-from data import CheckBoxData
+from data.elements_data import CheckBoxData, UploadAndDownloadData
+
 from generation import Generation
 from locators.elements_page_locators import TextBoxPageLocators, \
     CheckBoxLocators, RadioButtonLocators, WebTablesLocators, ButtonsPageLocators, \
@@ -347,24 +348,28 @@ class UploadAndDownload(BasePage):
     @allure.step("Ожидание появления файла: {file_path}")
     def wait_for_file(file_path, timeout: int = 20) -> bool:
         start = time.time()
+
         while time.time() - start < timeout:
             if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:
                 return True
             time.sleep(0.5)
         return False
 
+    @allure.step("Скачиваем файл")
     def click_download_button(self) -> bool:
-        file_path = r"C:\Users\adizerko\Downloads\sampleFile.jpeg"
+        file_name = "sampleFile.jpeg"
+        file_path = os.path.join(UploadAndDownloadData.DOWNLOADS_DIR, file_name)
         self.click(self.locators.DOWNLOAD_BUTTON)
         result = self.wait_for_file(file_path)
+
         if result:
             os.remove(file_path)
         return result
 
-    @allure.step("Скачиваем файл")
+    @allure.step("Загружаем файл")
     def upload_file(self) -> tuple[str, str]:
         file_name, file_path = Generation.text_file()
         self.send_keys(self.locators.UPLOAD_INPUT, file_path)
-        os.remove(file_path)
         result = self.get_text(self.locators.UPLOAD_RESULT)
+        os.remove(file_path)
         return file_name, result

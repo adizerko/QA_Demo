@@ -8,7 +8,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from curl import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, \
     PROGRESS_BAR_URL, TABS_URL, TOOL_TIPS_URL, MENU_URL, SELECT_MENU_URL
-from data import AutoCompleteData
+from data.widgets_data import AutoCompleteData
 from generation import Generation
 from helper import Helper
 from locators.widgets_page_locators import TabsPageLocators, ToolTipsPageLocators, \
